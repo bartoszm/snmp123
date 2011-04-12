@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE traps SYSTEM "./trap.dtd">
+<!--
+-->
+<traps>
+    <default>
+        <port>162</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+    </default>
+    <test>
+        <version no="1"/>
+        <host>jessage</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>jessage</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>selidor</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>selidor</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>noAuthUser</username>
+            <context>
+                <id></id>
+                <name>public</name>
+            </context>
+            <auth ado="no"></auth>
+        </usm>
+    </test>
+    <!--
+    <test>
+        <version no="1"/>
+        <host>host50</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>host50</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>host50</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>AuthUser</username>
+            <context>
+                <id>80000009030000115CF25651</id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="no"></priv>
+        </usm>
+    </test>
+    -->
+</traps>

@@ -1,0 +1,38 @@
+<! HTML file Header:  >
+<!                    >
+<! NAME               >
+<!      $RCSfile: TrapTestSuite.html,v $     >
+<! DESCRIPTION        >
+<!      [given below] >
+<! DELTA              >
+<!      $Revision: 1.1 $    >
+<!      $Author: birgit $      >
+<! CREATED            >
+<!      $Date: 2001/03/08 11:14:20 $        >
+<! COPYRIGHT          >
+<!      Westhawk Ltd  >
+<! TO DO              >
+<!                    >
+
+<HTML>
+<HEAD>
+<TITLE>Trap Test Suite</TITLE>
+</HEAD>
+
+<BODY>
+The trap test will start now. Note, on UNIX and Linux you have to run
+this as root.
+
+<!-- archive="snmp4_4.jar,xerces.jar" -->
+<applet
+  codebase="../../../../"
+  archive="tablelayout.jar,xerces.jar" 
+  code="uk.co.westhawk.test.TrapTestSuite.class" 
+  name="TrapTestSuite"
+  width=200Trap 
+  height=200
+  align=left
+>
+<param name="XML_FILE" value="http://hort/snmp_devel/uk/co/westhawk/test/trap.xml">
+</applet>
+

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!-- 
+ *
+ * NAME
+ *      $RCSfile: table-post.xsql,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.1 $
+ *      $Author: birgit $
+ * CREATED
+ *      $Date: 2002/10/15 13:37:02 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ *
+-->
+
+<!--
+-->
+<?xml-stylesheet type="text/xsl" href="table-post.xsl"?>
+
+<SUPER xmlns:xsql="urn:oracle-xsql" connection="demo">
+<xsql:include-request-params/>
+
+<xsql:insert-request 
+      table="SCOTT.trap" 
+      transform="table-transform-post.xsl"
+      date-format="dd/MM/yyyy"/>
+
+<xsql:set-page-param name="key">
+    select SCOTT.trapSeq.CurrVal from dual
+</xsql:set-page-param>
+
+<xsql:query rowset-element="TRAPS" row-element="TRAP"
+    date-format="dd/MM/yyyy HH:mm:ss">
+
+    select * from SCOTT.trap 
+     where trap_key = {@key}
+</xsql:query>
+
+
+</SUPER>

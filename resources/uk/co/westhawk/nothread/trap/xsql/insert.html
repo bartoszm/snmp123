@@ -1,0 +1,99 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<!-- 
+ *
+ * NAME
+ *      $RCSfile: insert.html,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.2 $
+ *      $Author: birgit $
+ * CREATED
+ *      $Date: 2005/03/02 17:54:00 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ *
+-->
+<head>
+      <meta http-equiv="Content-Type" content="text/html"/>
+      <title>Add TRAP</title>
+</head>
+<body>
+      <h1>Add TRAP</h1>
+      <form name="postform" method="post" action="table-post.xsql">
+         <table width="90%">
+            <tbody><tr>
+               <th>Column name</th>
+               <th></th>
+               <th>Value</th>
+            </tr>
+            <tr>
+               <td>TRAP_KEY</td>
+               <td align="right">* </td>
+               <td></td>
+            </tr>
+            <tr>
+               <td>HOSTNAME</td>
+               <td align="right">* </td>
+               <td>
+                  <input type="text" name="HOSTNAME" value="localhost" size="50" maxlength="50"/>
+               </td>
+            </tr>
+            <tr>
+               <td>PORT</td>
+               <td align="right">* </td>
+               <td>
+                  <input type="text" name="PORT" value="162" size="22" maxlength="22"/>
+               </td>
+            </tr>
+            <tr>
+               <td>COMMUNITY</td>
+               <td align="right">* </td>
+               <td>
+                  <textarea cols="60" rows="2" name="COMMUNITY">public</textarea>
+               </td>
+            </tr>
+            <tr>
+               <td>SYSUPTIME</td>
+               <td align="right">* </td>
+               <td>
+                  <input type="text" name="SYSUPTIME" value="100" size="22" maxlength="22"/>
+               </td>
+            </tr>
+            <tr>
+               <td>SNMPTRAPOID</td>
+               <td align="right">* </td>
+               <td>
+                  <select name="SNMPTRAPOID">
+                    <option value="1.3.6.1.6.3.1.1.5.1">coldStart</option>
+                    <option value="1.3.6.1.6.3.1.1.5.2">warmStart</option>
+                    <option value="1.3.6.1.6.3.1.1.5.3">linkDown</option>
+                    <option value="1.3.6.1.6.3.1.1.5.4">linkUp</option>
+                    <option value="1.3.6.1.6.3.1.1.5.5">authenticationFailure</option>
+                    <option value="1.3.6.1.6.3.1.1.5.6">egpNeighborLoss</option>
+                  </select>
+               </td>
+            </tr>
+            <tr>
+               <td>RESULT</td>
+               <td align="right"></td>
+               <td>
+               </td>
+            </tr>
+            <tr>
+               <td>INSERTDATE</td>
+               <td align="right"></td>
+               <td>
+               </td>
+            </tr>
+         </tbody></table>
+         <input type="submit" name="command" value="Add"/>
+         <input type="reset" name="command" value="Reset"/>
+      </form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE traps SYSTEM "./trap.dtd">
+<!--
+-->
+<traps>
+    <default>
+        <port>162</port>
+        <bind>[fec0::26]</bind>
+        <socket_type type="STD"/>
+    </default>
+    <test>
+        <version no="1"/>
+        <host>[fec0::28]</host>
+        <port>161</port>
+        <bind>[fec0::26]</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>[fec0::28]</host>
+        <port>161</port>
+        <bind>[fec0::26]</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>[fec0::28]</host>
+        <port>161</port>
+        <bind>[fec0::26]</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>noAuthUser</username>
+            <context>
+                <id></id>
+                <name>public</name>
+            </context>
+            <auth ado="no"></auth>
+        </usm>
+    </test>
+</traps>
