@@ -1,0 +1,38 @@
+<!-- /*
+ * NAME
+ *      $RCSfile: agent.dtd,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.1 $
+ *      $Author: birgit $
+ * CREATED
+ *      $Date: 2006/01/23 13:35:57 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ */ -->
+
+<!-- agent -->
+<!ELEMENT agent (usm, nodes, tests)>
+
+<!-- usm elements -->
+<!ELEMENT usm (engineID, engineBoots)>
+<!ELEMENT engineID (#PCDATA)>
+<!ELEMENT engineBoots (#PCDATA)> 
+
+
+<!-- nodes -->
+<!ELEMENT nodes (scalar*)>
+
+<!-- scalar elements -->
+<!ELEMENT scalar (value)>
+  <!ATTLIST scalar 
+            name CDATA #REQUIRED 
+            oid CDATA #REQUIRED>
+<!ELEMENT value (#PCDATA)>
+
+
+<!ENTITY tests SYSTEM "./test.dtd">
+

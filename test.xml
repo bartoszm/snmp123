@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<property name="test.dir" value="uk/co/westhawk/test"/>
+
+
+<target name="runAgentTestSuite" description="Runs the agent test suite">
+    <property name="optim.dir" value="/project/OptimizeIt311/lib"/>
+    <property name="xmlfilerarg" value="agentIPv4.xml"/>
+    <!--
+    <property name="xmlfilerarg" value="agentIPv6.xml"/>
+    -->
+    <copy file="${src.dir}/${test.dir}/agent.dtd"
+          todir="${classes.dir}/${test.dir}"/>
+    <copy file="${src.dir}/${test.dir}/${xmlfilerarg}" 
+          todir="${classes.dir}/${test.dir}"/>
+    <java classname="uk.co.westhawk.test.Agent"
+          fork="true">
+        <classpath>
+            <pathelement location="${table.jar}"/>
+            <pathelement location="${snmp.jar}"/>
+            <pathelement location="${classes.dir}"/>
+            <pathelement location="${optim.dir}/optit.jar"/>
+        </classpath>
+        <!-- 3 slashes are necessary, else it won't work on Windows! -->
+        <arg value="file:///${user.dir}/${classes.dir}/${test.dir}/${xmlfilerarg}"/>
+    </java>
+</target>
+
+
+<target name="runTestSuite" description="Runs the test suite">
+    <property name="optim.dir" value="/project/OptimizeIt311/lib"/>
+    <property name="xmlfilerarg" value="testIPv4.xml"/>
+    <!--
+    <property name="xmlfilerarg" value="testIPv6.xml"/>
+    -->
+    <copy file="${src.dir}/${test.dir}/test.dtd"
+          todir="${classes.dir}/${test.dir}"/>
+    <copy file="${src.dir}/${test.dir}/${xmlfilerarg}" 
+          todir="${classes.dir}/${test.dir}"/>
+    <java classname="uk.co.westhawk.test.TestSuite"
+          fork="true">
+        <classpath>
+            <pathelement location="${table.jar}"/>
+            <pathelement location="${snmp.jar}"/>
+            <pathelement location="${classes.dir}"/>
+            <pathelement location="${optim.dir}/optit.jar"/>
+        </classpath>
+        <!-- 3 slashes are necessary, else it won't work on Windows! -->
+        <arg value="file:///${user.dir}/${classes.dir}/${test.dir}/${xmlfilerarg}"/>
+    </java>
+</target>
+
+
+<target name="runTrapTestSuite" description="Runs the trap test suite">
+    <property name="optim.dir" value="/project/OptimizeIt311/lib"/>
+    <property name="xmlfilerarg" value="trapIPv4.xml"/>
+    <!--
+    <property name="xmlfilerarg" value="trapIPv6.xml"/>
+    -->
+    <copy file="${src.dir}/${test.dir}/trap.dtd"
+          todir="${classes.dir}/${test.dir}"/>
+    <copy file="${src.dir}/${test.dir}/${xmlfilerarg}" 
+          todir="${classes.dir}/${test.dir}"/>
+    <java classname="uk.co.westhawk.test.TrapTestSuite"
+          fork="true">
+        <classpath>
+            <pathelement location="${table.jar}"/>
+            <pathelement location="${snmp.jar}"/>
+            <pathelement location="${classes.dir}"/>
+            <pathelement location="${optim.dir}/optit.jar"/>
+        </classpath>
+        <!-- 3 slashes are necessary, else it won't work on Windows! -->
+        <arg value="file:///${user.dir}/${classes.dir}/${test.dir}/${xmlfilerarg}"/>
+    </java>
+</target>
+
+
+
+<target name="styleTests" description="Transform testsuite into readable html">
+
+    <style basedir="."
+           in="${src.dir}/${test.dir}/testIPv4.xml"
+           out="${src.dir}/${test.dir}/testIPv4.html"
+           style="${src.dir}/${test.dir}/testToHtml.xsl">
+    </style>
+    <style basedir="."
+           in="${src.dir}/${test.dir}/testIPv6.xml"
+           out="${src.dir}/${test.dir}/testIPv6.html"
+           style="${src.dir}/${test.dir}/testToHtml.xsl">
+    </style>
+    <style basedir="."
+           in="${src.dir}/${test.dir}/trapIPv4.xml"
+           out="${src.dir}/${test.dir}/trapIPv4.html"
+           style="${src.dir}/${test.dir}/trapToHtml.xsl">
+    </style>
+    <style basedir="."
+           in="${src.dir}/${test.dir}/trapIPv6.xml"
+           out="${src.dir}/${test.dir}/trapIPv6.html"
+           style="${src.dir}/${test.dir}/trapToHtml.xsl">
+    </style>
+</target>
+
+
+<target name="treeviewer" description="Views a XML file as a tree">
+    <property name="xerces.dir" value="/project/xerces-2_6_2"/>
+
+    <fileset id="xerces.jars" dir="${xerces.dir}">
+        <include name="xercesImpl.jar"/>
+        <include name="xercesSamples.jar"/>
+        <include name="xmlParserAPIs.jar"/>
+    </fileset>
+    <path id="xerces.classpath">
+        <fileset refid="xerces.jars"/>
+    </path>
+    <property name="xmlfilerarg" value="agentIPv4.xml"/>
+    <java classname="ui.TreeViewer"
+          fork="true">
+        <classpath>
+            <path refid="xerces.classpath"/>
+        </classpath>
+        <arg value="${src.dir}/${test.dir}/${xmlfilerarg}"/>
+    </java>
+</target>
+
+
+

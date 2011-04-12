@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE project PUBLIC "-//ANT//DTD project//EN" "./ant.dtd" [
+   <!ENTITY oracle SYSTEM "./oracle.xml">
+   <!ENTITY example SYSTEM "./example.xml">
+   <!ENTITY stub SYSTEM "./stub.xml">
+   <!ENTITY test SYSTEM "./test.xml">
+   <!ENTITY applet SYSTEM "./applet.xml">
+]>
+
+
+<project name="snmp" default="buildall" basedir=".">
+
+
+<!-- Allow the user to override properties -->
+<property file="./build.properties"/>
+
+<!-- 
+If you want to change any of the following properties, you should do 
+that in build.properties.
+-->
+<property name="javac.debug" value="true"/>
+<property name="doc.dir" value="doc"/>
+<property name="javadoc.dir" value="${doc.dir}/api"/>
+<property name="src.dir" value="src"/>
+<property name="lib.dir" value="lib"/>
+<property name="classes.dir" value="classes"/>
+<property name="classesO.dir" value="classesOracle"/>
+<property name="webinf.dir" value="WEB-INF"/>
+
+<!--
+Download tablelayout.jar into ./lib/ from:
+http://www.westhawk.co.uk/software/tablelayout22.zip
+-->
+
+<property name="table.jar.orig" value="/project/classes1.1/tablelayout.jar"/>
+<!-- Used for the servlet examples -->
+<property name="httpd.jar" value="/usr/lib/oracle/xe/app/oracle/product/10.2.0/server/rdbms/jlib/servlet.jar"/>
+
+<!-- If you don't want to build this one, (re)move 
+     src/uk/co/westhawk/examplev2c/MonitorAsteriskGraph.java 
+     out of the way -->
+<property name="prefuse.jar" value="/project/prefuse-beta/build/prefuse.jar"/>
+
+<!-- Used for examplev1/GenericGetOne -->
+<!-- The plugin location is all over the place -->
+<fileset id="plugin.jars" dir="${java.home}">
+    <include name="lib/plugin.jar"/>
+    <include name="lib/javaplugin.jar"/>
+    <include name="lib/netscape.jar"/>
+    <include name="jre/lib/plugin.jar"/>
+    <include name="jre/lib/javaplugin.jar"/>
+    <include name="jre/lib/netscape.jar"/>
+</fileset>
+<path id="plugin.classpath">
+    <fileset refid="plugin.jars"/>
+</path>
+
+
+<!-- Used in oracle.xml -->
+<property name="oracle.dir" value="/u01/oracle/OraHome1"/>
+<!-- Used in stub.xml -->
+<property name="mibble.dir" value="/project/classes1.3/mibble-2.5"/>
+
+<!--
+End of properties that can be overwritten in build.properties.
+-->
+
+<property environment="env"/>
+<property name="major-version" value="6"/>
+<property name="minor-version" value="1"/>
+
+<property name="impl_version" 
+    value="${major-version}.${minor-version}"/>
+<property name="version.no" 
+    value="${major-version}_${minor-version}"/>
+
+<property name="patch.no" value="0"/>
+
+<property name="table.jar" value="${lib.dir}/tablelayout.jar"/>
+<property name="snmp.jar" value="${lib.dir}/snmp${version.no}.jar"/>
+<property name="snmppatch.jar" value="${lib.dir}/snmp${version.no}_${patch.no}.jar"/>
+<property name="snmpOracle.jar" value="${lib.dir}/snmpOracle${version.no}.jar"/>
+
+<property name="generic.jar" value="${lib.dir}/GenericGetOne.jar"/>
+<property name="keystore.pass" value="${env.KEYSTORE_PASS}"/>
+
+
+
+<!-- Include the other elements -->
+&oracle;
+&example;
+&stub;
+&test;
+&applet;
+
+
+
+<!-- Set the classpath for this module -->
+<path id="general.classpath">
+    <pathelement location="${httpd.jar}"/>
+    <pathelement location="${table.jar}"/>
+    <pathelement location="${prefuse.jar}"/>
+    <path refid="plugin.classpath"/>
+</path>
+
+
+<target name="buildall">
+    <antcall target="clean"/>
+    <antcall target="jarSNMP"/>
+    <antcall target="jarOracle"/>
+
+    <antcall target="javadoc"/>
+    <antcall target="zip"/>
+
+    <antcall target="buildStubBrowser"/>
+</target>
+
+<target name="clean">
+    <delete dir="${classes.dir}/uk"/>
+    <delete dir="${classes.dir}/org"/>
+    <delete dir="${classesO.dir}"/>
+</target>
+
+<target name="copyTableLayout" 
+    description="Only copy the tablelayout.jar file if it isn't there">
+
+    <available property="target.file"
+               file="${table.jar}"/>
+    <antcall target="_copyTableLayout"/>
+</target>
+
+<target name="_copyTableLayout" unless="target.file">
+    <copy file="${table.jar.orig}" tofile="${table.jar}"/>
+</target>
+
+
+<target name="compile"
+    description="Target for compiling class files">
+    <tstamp/>
+    <mkdir dir="${classes.dir}"/>
+
+    <antcall target="copyTableLayout"/>
+
+    <javac destdir="${classes.dir}"
+           debug="${javac.debug}"
+           deprecation="on">
+        <src>
+            <pathelement path="${src.dir}"/>
+        </src>
+        <exclude name="**/westhawk/stub/**"/>
+        <classpath>
+            <path refid="general.classpath"/>
+        </classpath>
+    </javac>
+</target>
+
+
+
+<target name="compileSNMP"
+    description="Target for compiling snmp core class files">
+    <tstamp/>
+    <mkdir dir="${classes.dir}"/>
+
+    <javac destdir="${classes.dir}"
+           debug="${javac.debug}"
+           deprecation="on">
+        <src>
+            <pathelement path="${src.dir}"/>
+        </src>
+        <include name="org/bouncycastle/crypto/**"/>
+        <include name="uk/co/westhawk/snmp/**"/>
+    </javac>
+</target>
+
+
+
+<target name="jarSNMP"
+        description="Target to create the snmp jar file"
+        depends="compileSNMP">
+
+    <mkdir dir="${lib.dir}"/>
+    <jar destfile="${snmp.jar}"
+         basedir="${classes.dir}"
+         manifest="beansManifestIn.mf">
+        <include name="org/bouncycastle/crypto/**"/>
+        <include name="uk/co/westhawk/snmp/**"/>
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stack"/>
+                <attribute name="Implementation-Version" value="${impl_version}"/>
+            </section>
+        </manifest>
+    </jar>
+</target>
+
+
+<target name="jarpatch"
+        description="Target to create the snmp jar file for a patch">
+
+    <jar destfile="${snmppatch.jar}"
+         basedir="${classes.dir}">
+        <include name="uk/co/westhawk/snmp/stack/SnmpContextv3Basis.class"/>
+        <include name="uk/co/westhawk/snmp/stack/SnmpContextv3Pool.class"/>
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stack - Patch"/>
+                <attribute name="Implementation-Version" value="${impl_version}.${patch.no}"/>
+            </section>
+        </manifest>
+    </jar>
+</target>
+
+
+<target name="deployServlets"
+        description="Target to deploy the servlets to Tomcat's WEB-INF"
+        depends="compile, jarSNMP">
+
+    <property name="servlet.jar" value="${webinf.dir}/lib/servlet${version.no}.jar"/>
+    <jar destfile="${servlet.jar}"
+         basedir="${classes.dir}">
+        <include name="uk/co/westhawk/servlet/**"/>
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stack - Servlets"/>
+                <attribute name="Implementation-Version" value="${impl_version}"/>
+            </section>
+        </manifest>
+    </jar>
+    <copy file="${snmp.jar}" todir="${webinf.dir}/lib"/>
+</target>
+
+
+
+<!-- Basicly, the v3 stuff is removed -->
+<target name="compileOracle"
+    description="Target for compiling class files to be loaded into Oracle">
+    <tstamp/>
+    <mkdir dir="${classesO.dir}"/>
+
+    <javac destdir="${classesO.dir}"
+           debug="${javac.debug}"
+           deprecation="on"
+           target="1.2">
+        <src>
+            <pathelement path="${src.dir}"/>
+        </src>
+        <include name="**/bouncycastle/**"/>
+        <include name="**/stack/Pdu.java"/>
+        <include name="**/stack/SetPdu.java"/>
+        <include name="**/stack/GetNextPdu.java"/>
+        <include name="**/stack/GetBulkPdu.java"/>
+        <include name="**/stack/InformPdu.java"/>
+        <include name="**/stack/*Trap*.java"/>
+        <include name="**/stack/SnmpConstants.java"/>
+        <include name="**/stack/varbind.java"/>
+        <include name="**/stack/Transmitter.java"/>
+        <include name="**/stack/Asn*.java"/>
+        <include name="**/stack/*Exception*.java"/>
+        <include name="**/stack/*Context*.java"/>
+        <exclude name="**/stack/*v3*.java"/>
+        <exclude name="**/stack/Time*.java"/>
+        <exclude name="**/stack/*Usm*.java"/>
+        <exclude name="**/stack/usmStatsConstants.java"/>
+        <include name="**/pdu/*Trap*.java"/>
+        <include name="**/pdu/OneSetPdu.java"/>
+        <include name="**/pdu/OneGetPdu.java"/>
+        <include name="**/pdu/OneGetNextPdu.java"/>
+        <include name="**/pdu/OneGetBulkPdu.java"/>
+        <include name="**/pdu/OneInformPdu.java"/>
+        <exclude name="**/pdu/DiscoveryPdu.java"/>
+        <include name="**/util/SnmpUtilities.java"/>
+        <include name="**/event/*.java"/>
+        <include name="**/nothread/**/*.java"/>
+        <include name="**/net/*.java"/>
+    </javac>
+</target>
+
+
+<target name="jarOracle" 
+        description="Target to create jar file that can be loaded into Oracle"
+        depends="compileOracle">
+    <mkdir dir="${lib.dir}"/>
+    <jar destfile="${snmpOracle.jar}"
+         basedir="${classesO.dir}">
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stack - Oracle"/>
+                <attribute name="Implementation-Version" value="${impl_version}"/>
+            </section>
+        </manifest>
+    </jar>
+</target>
+
+
+<target name="javadoc" 
+        description="Generates javadoc documentation">
+    <tstamp/>
+    <mkdir dir="${javadoc.dir}"/>
+
+    <property name="title" value="SNMP Stack ${version.no}"/>
+    <delete dir="${javadoc.dir}/uk/co/westhawk/stub"/>
+
+    <javadoc destdir="${javadoc.dir}"
+             header="&lt;i>${title}&lt;/i>"
+             doctitle="${title}"
+             windowtitle="${title}" 
+             additionalparam="-breakiterator">
+        <packageset dir="${src.dir}">
+            <include name="uk/**"/>
+            <include name="org/**"/>
+            <exclude name="uk/co/westhawk/stub/**"/>
+        </packageset>
+        <classpath>
+            <path refid="general.classpath"/>
+        </classpath>
+    </javadoc>
+</target>
+
+
+<target name="zip" 
+        description="Zip up files for distribution">
+
+    <delete file="snmp${version.no}.zip"/>
+    <antcall target="copyTableLayout"/>
+
+    <zip destfile="snmp${version.no}.zip"
+         basedir=".">
+         <include name="${table.jar}"/>
+         <include name="${snmp.jar}"/>
+         <include name="${snmpOracle.jar}"/>
+         <include name="Readme*.*"/>
+         <include name="*.xml"/>
+         <include name="*.dtd"/>
+         <include name="*.properties"/>
+         <include name="beansManifestIn.mf"/>
+         <include name="env.*"/>
+
+
+         <include name="${src.dir}/uk/**"/>
+
+         <include name="${src.dir}/uk/co/westhawk/examplev1/BigBlockOperation.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/InterfaceSpeed.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/Interfaces.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/OneBlockOperation.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/ReceiveTrap.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/SendTrap.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/UpSince.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/getAllInterfaces.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/getAllInterfacesUI.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/get_next.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/setSnmpEnableAuthenTraps.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/get_one.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/set_one.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/set_one_wrong.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/testDialogChannelStatusBean.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/testNcdPerfDataBean.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/test_threads.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev1/MultipleHosts.properties"/>
+
+
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/get_bulk.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/get_next.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/set_one.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/SendTrap.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/ReceiveTrap.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev2c/SendInform.properties"/>
+
+
+         <include name="${src.dir}/uk/co/westhawk/examplev3/ReceiveTrap*.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/SendTrap*.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/SendInform.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/get_next.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/mgsoft*.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/setSnmpEnableAuthenTraps.properties"/>
+         <include name="${src.dir}/uk/co/westhawk/examplev3/set_one.properties"/>
+
+         <exclude name="${src.dir}/uk/co/westhawk/**/local/**"/>
+         <exclude name="${src.dir}/uk/co/westhawk/stub/**"/>
+         <exclude name="stubs/**"/>
+
+         <include name="${src.dir}/org/**"/>
+         <include name="${doc.dir}/**"/>
+         <exclude name="${doc.dir}/article/**"/>
+         <exclude name="${doc.dir}/stallings/**"/>
+         <exclude name="${doc.dir}/ipj_3.pdf"/>
+
+         <exclude name="**/CVS*/**"/>
+         <exclude name="**/*~"/>
+         <exclude name="**/*.old"/>
+         <exclude name="**/*.swp"/>
+         <exclude name="**/out*"/>
+         <exclude name="**/*out"/>
+         <exclude name="**/*.diff"/>
+    </zip>
+</target>
+
+<target name="tag" description="Tag source tree">
+    <property name="tag.name" value="snmp${version.no}"/>
+    <echo message="Tag sources with tag ${tag.name}"/>
+    <cvs command="rtag -a ${tag.name} westhawksnmp"/>
+    <!--
+    -->
+    
+    <!--
+    <property name="tag.date" value="'2006-02-22 01:00:00'"/>
+    <echo message="Tag sources with tag ${tag.name} of date ${tag.date}"/>
+    <cvs command="rtag -a -D ${tag.date} ${tag.name} ."/>
+    -->
+</target>
+
+
+<target name="usage">
+  <echo>
+      Type: ant 
+        to generate lib/snmpX.jar and lib/snmpOracleX.jar
+  </echo>
+</target>
+
+
+</project>
+

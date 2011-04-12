@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE agent SYSTEM "./agent.dtd">
+<!--
+-->
+<agent>
+    <usm>
+        <engineID>80001f888069d010596343ce43</engineID>
+        <engineBoots>15</engineBoots>
+    </usm>
+    <nodes>
+        <scalar name="sysContact" oid="1.3.6.1.2.1.1.4.0">
+            <value>Birgit Arkesteijn, birgit@westhawk.co.uk</value>
+        </scalar>
+        <scalar name="sysLocation" oid="1.3.6.1.2.1.1.6.0">
+            <value>Manchester, UK</value>
+        </scalar>
+    </nodes>
+    <tests>
+        <test>
+            <version no="1"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <community>public</community>
+        </test>
+        <test>
+            <version no="2c"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <community>public</community>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>noAuthUser</username>
+                <context>
+                    <id>1afc</id>
+                    <name>public</name>
+                </context>
+                <auth ado="no">
+                </auth>
+                <priv pdo="no">
+                </priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>authUser</username>
+                <context>
+                    <id>1afc</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>MD5</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="no"></priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>authSHAUser</username>
+                <context>
+                    <id>1afc</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>SHA1</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="no"></priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>privUser</username>
+                <context>
+                    <id>1afc</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>MD5</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="yes">
+                    <pproto>DES</pproto>
+                    <ppassw>PrivPassword</ppassw>
+                </priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::28]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>privSHAUser</username>
+                <context>
+                    <id>1afc</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>SHA1</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="yes">
+                    <pproto>DES</pproto>
+                    <ppassw>PrivPassword</ppassw>
+                </priv>
+            </usm>
+        </test>
+
+        <test>
+            <version no="1"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <community>public</community>
+        </test>
+        <test>
+            <version no="2c"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <community>public</community>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>noAuthUser</username>
+                <context>
+                    <id>800007e58050d9394b0cad563d</id>
+                    <name>public</name>
+                </context>
+                <auth ado="no">
+                </auth>
+                <priv pdo="no">
+                </priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>authUser</username>
+                <context>
+                    <id>800007e58050d9394b0cad563d</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>MD5</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="no"></priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>authSHAUser</username>
+                <context>
+                    <id>800007e58050d9394b0cad563d</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>SHA1</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="no"></priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>privUser</username>
+                <context>
+                    <id>800007e58050d9394b0cad563d</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>MD5</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="yes">
+                    <pproto>DES</pproto>
+                    <ppassw>PrivPassword</ppassw>
+                </priv>
+            </usm>
+        </test>
+        <test>
+            <version no="3"/>
+            <host>[fec0::26]</host>
+            <port>161</port>
+            <bind>[fec0::26]</bind>
+            <socket_type type="STD"/>
+            <usm>
+                <username>privSHAUser</username>
+                <context>
+                    <id>800007e58050d9394b0cad563d</id>
+                    <name>public</name>
+                </context>
+                <auth ado="yes">
+                    <aproto>SHA1</aproto>
+                    <apassw>AuthPassword</apassw>
+                </auth>
+                <priv pdo="yes">
+                    <pproto>DES</pproto>
+                    <ppassw>PrivPassword</ppassw>
+                </priv>
+            </usm>
+        </test>
+    </tests>
+</agent>
+

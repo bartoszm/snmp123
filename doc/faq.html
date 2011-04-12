@@ -1,0 +1,562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>
+<!-- /*
+ * NAME
+ *      $RCSfile: faq.html,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.14 $
+ *      $Author: birgita $
+ * CREATED
+ *      $Date: 2009/03/18 12:15:42 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ */ -->
+<title>FAQ on Westhawk's SNMP stack</title>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+<meta name="author" content="Birgit Arkesteijn">
+<link href="css/general.css" rel="stylesheet" type="text/css"/>
+<style type="text/css">
+          .green {color: green; font-weight: bold}
+          .red   {color: red}
+</style>
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+  _uacct = "UA-771690-2";
+  urchinTracker();
+</script>
+</head>
+<body>
+
+<h1>FAQ on Westhawk's SNMP stack</h1>
+
+<p>This file is part of the stack's distribution and is available online
+as well. The links in this document should work in the former case, but not
+necessarily in the later case.</p>
+
+<hr width="100%" size="2">
+
+<h3 class="q"><a href="#basic">Basic questions:</a></h3>
+<p>
+<a href="#download">Where can I download the stack from?</a><br/>
+<a href="#information">Where can I get more information on how to use your stack?</a><br/>
+<a href="#examples">Where can I find examples on how to use the stack?</a><br/>
+<a href="#compile">How do I compile the stack?</a><br/>
+<a href="#jdk">Which version of the JDK should I use?</a><br/>
+</p>
+
+<h3 class="q"><a href="#usage">Usage questions:</a></h3>
+<p>
+<a href="#functionality">What functionality does the stack offer?</a><br/>
+<a href="#agent">Can I write an agent with your stack?</a><br/>
+<a href="#mib">Does the stack have any MIB browser functionality?</a><br/>
+<a href="#report">Why do you not support the Report PDU?</a><br/>
+<a href="#ipaddress">How do I create an ASN.1 IP Address object?</a><br/>
+<a href="#ipv6">Does the stack support IPv6?</a><br/>
+<a href="#timeout">How can I set the timeout and the number of retries of a request?</a><br/>
+<a href="#trap_decode">Why doesn't the stack decode incoming PDU requests or traps for me?</a><br/>
+</p>
+
+<h3 class="q"><a href="#problem">Problem solving:</a></h3>
+<p>
+<a href="#threads">Why doesn't the number of threads reduce?</a><br/>
+<a href="#badtype">I get errors like <code>AsnObject.AsnMakeMe(): Bad Type 0xA6</code>. What do they mean?</a><br/>
+<a href="#ui_hangs">My user interface seems to hang. Any idea?</a><br/>
+<a href="#display_string">Why does <code>AsnOctets.toString()</code> print hex, instead of a readable String?</a><br/>
+<a href="#display_string">Why does <code>AsnOctets.toString()</code> print a String, instead of a hex?</a><br/>
+</p>
+
+<h3 class="q"><a href="#general">General information:</a></h3>
+<p>
+<a href="#test">How did you test your stack?</a><br/>
+<a href="#vulnerable">Is the stack vulnerable to malformed requests?</a><br/>
+<a href="#SNMP_information">Where can I find more information on SNMP?</a><br/>
+<a href="#license">What about copyright, license and costs?</a><br/>
+<a href="#companies">Which companies are using this stack?</a><br/>
+</p>
+
+<hr width="100%" size="2">
+
+<h3 class="q"><a name="basic"></a>Basic questions:<br/></h3>
+
+<p class="question"><a name="download"></a>Where can I download the stack from?</p>
+
+<p>The latest version is available from our 
+<a href="http://snmp.westhawk.co.uk/index.html">website</a>.</p>
+
+<p class="question"><a name="information"></a>Where can I get more information on how to use your stack?</p>
+
+<form name="gs" method="GET" action="http://www.google.com/search">
+    <span>You can Google our SNMP site, using </span>
+    <input type="text" name="q" size="40" maxlength="2048"/>
+    <input type="hidden" name="as_sitesearch" value="snmp.westhawk.co.uk"/>
+    <input type="submit" name="btnG" value="Search"/>
+    <span> (excludes javadoc)</span>
+</form>
+
+<p>
+Help on the stack can be found in this FAQ, 
+the <a href="./StackUsage.html">Stack Usage</a> document (also
+online), the <a href="api/index.html">javadoc</a> documentation
+(not online)
+and the examples that are distributed with the stack.
+Please search the 
+<a
+href="https://sourceforge.net/mailarchive/forum.php?forum_name=westhawksnmp-snmp"
+target="outside">archives</a> of the 
+<a href="https://sourceforge.net/mail/?group_id=182520"
+target="outside">mailing list</a>.
+</p>
+
+
+<p>We do not have a buglist or a todo list. 
+We are thinking about realising all of these, but have not done so yet.<br/>
+</p>
+
+<p>If your question is not answered by any of the above, 
+you can post it to the
+<a href="https://lists.sourceforge.net/lists/listinfo/westhawksnmp-snmp">snmp mailing list</a>
+(you have to be subscribed to do so). 
+We will answer when our resources permit us to do so. 
+When posting, please consider the following:<br/>
+</p>
+
+<ul>
+<li><span style="font-weight: bold;">Useful Subject.</span> Please give your email a useful subject. <em>Help</em> or <em>Question</em> do not tell us the nature of your problem or request.&nbsp;</li>
+<li><span style="font-weight: bold;">Be Precise.</span> Please tell us precisely what you are doing, and precisely what is happening. Please mention:
+    <ul>
+        <li>any error messages or exception trace</li>
+        <li>JDK version, Platform, Stack version</li>
+    </ul>
+</li>
+<li><span style="font-weight: bold;">Be Polite.</span> The stack is free, 
+so please realise we have no obligation to answer your questions. Aggressive 
+language, excessive use of capitals, and multiple exclamation points or 
+question marks are all considered rude and are not appreciated.</li>
+<li><span style="font-weight: bold;">Proper English.</span> It does not have 
+to be perfect English, but please no hacker, geek or SMS like speech, 
+like <em>l8r</em> or <em>C U</em>. 
+If it is too hard to read, you can't expect people to help you.</li>
+<li><span style="font-weight: bold;">Tell Us Your Name.</span> It feels good 
+to know who we are talking to.</li>
+</ul>
+
+<p class="question"><a name="examples"></a>Where can I find examples on how to use the stack?</p>
+
+<p>The packages uk.co.westhawk.examplev1, uk.co.westhawk.examplev2c and 
+uk.co.westhawk.examplev3 contain examples. The 
+<a href="./StackUsage.html">Stack Usage</a> document explains how to configure 
+and run them.</p>
+
+<p class="question"><a name="compile"></a>How do I compile the stack?</p>
+
+<p>Unless you want to change our code, there is no need to compile the 
+whole stack. All the <code>uk.westhawk.snmp.XX</code> packages are bundled in 
+the <code>snmp&lt;version&gt;.jar</code> file. 
+</p>
+
+<p>The stack comes with Ant build files. Type <code>ant compile</code> to 
+compile the stack. 
+</p>
+
+<p>However, the best thing to do is to import the package(s) and/or
+example(s) into your favourite IDE, like JBuilder or Forte, and take it from
+there. You should be able to add the <code>snmp&lt;version&gt;.jar</code> file 
+to the library of your IDE.
+</p>
+
+<p class="question"><a name="jdk"></a><span style="font-weight: bold;">Which version of the JDK should I use?</span>
+</p>
+
+<p>
+The stack is compiled with JDK 1.4.1.
+The packages uk.co.westhawk.nothread.oscar and 
+uk.co.westhawk.nothread.trap have to be compliant with JDK 1.2.X, since
+that is what Oracle&trade; 9i supports. However, this can be done by 
+setting the javac target option to 1.2. 
+</p>
+
+<hr width="100%" size="2">
+
+<h3 class="q"><a name="usage"></a>Usage questions:<br/></h3>
+
+<p class="question"><a name="functionality"></a>What functionality does the stack offer?</p>
+
+<p>The stack provides manager and (the basis of) agent functionality 
+for SNMPv1, SNMPv2c and SNMPv3 (both authentication and privacy). 
+</p>
+
+<table cellpadding="1" cellspacing="1" border="1" style="text-align: left; width: 95%; margin-left: auto; margin-right: auto;">
+    <tbody><tr>
+        <td style="text-align: center;">PDU type</td>
+        <td style="text-align: center;">Sending</td>
+        <td style="text-align: center;">Receiving</td>
+    </tr>
+    <tr>
+        <td>Get Request</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>GetNext Request</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Set Request</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>GetBulk Request (v2c, v3)</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Inform Request (v2c, v3)</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Response</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Trap v1</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Trap v2 (v2c, v3)</td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+        <td style="text-align: center;"><span class="green">Yes</span></td>
+    </tr>
+    <tr>
+        <td>Report</td>
+        <td style="text-align: center;"><span class="red">No</span></td>
+        <td style="text-align: center;"><span class="red">No</span></td>
+    </tr>
+</tbody></table>
+
+
+<p class="question"><a name="agent"></a>Can I write an agent with your stack?</p>
+
+<p>The stack was originally written with manager only functionality.
+In v4_14 we added the code that enables the stack to receive incoming requests 
+from different sources &amp; of different types, 
+and the interface that allows the stack to act as authoritative engine.
+</p>
+
+<p>
+However, an agent (or authoritative engine) should not only be able to
+receive requests, it has to act on them as well.
+This is much more tricky. For a 'generic' agent framework you need a tool
+that takes a MIB and creates a heap of java that will return the right types
+for a given OID. It also needs to generate stub methods which are then 
+implemented (i.e. go off and get the real value from the correct hardware 
+register or whatever).
+</p>
+
+<p>
+The stack does not offer any help in this area. 
+We would like to build such a generic framework, but are not sure (yet)
+on the design. Doing this properly takes a lot of effort and
+ongoing (paid) projects have priority. As always we would appreciate
+feedback on this matter.
+</p>
+
+
+<p class="question"><a name="mib"></a>Does the stack have any MIB browser functionality?</p>
+
+<p>No. The idea is to write dedicated PDUs or beans that gather specific 
+MIB information, i.e. the OID (Object Identifier) is hard coded.</p>
+
+<p>We use <a href="http://wwwhome.cs.utwente.nl/~schoenw/scotty">Scotty</a>, 
+that is based on Tk/Tcl. 
+We have written an experimental Stub Browser, using the 
+<a href="http://www.mibble.org">Mibble</a> MIB Parser. 
+Please read the section in the <a href="./StackUsage.html">Stack Usage</a> 
+document.
+</p>
+
+<p class="question"><a name="report"></a>Why do you not support the Report PDU?</p>
+
+<p>
+The Report PDU is implemented as part of the SNMPv3 timeliness discovery. 
+As far as we know Report PDUs are not used in "higher level" engine 
+to engine communication, like the Request PDUs are. 
+If you think otherwise, please post to the mailing list, mentioning the 
+RFC where the Report PDU behaviour is defined.
+</p>
+
+
+<p class="question"><a name="ipaddress"></a>How do I create an ASN.1 IP Address object?</p>
+
+<p>You can use one of the following three AsnOctets constructors:</p>
+
+<ol>
+  <li>
+      <a
+      href="api/uk/co/westhawk/snmp/stack/AsnOctets.html#AsnOctets(byte[],%20byte)">AsnOctets(byte[] s, byte t)</a>
+      , where t = SnmpConstants.IPADDRESS</li>
+  <li>
+      <a href="api/uk/co/westhawk/snmp/stack/AsnOctets.html#AsnOctets(java.net.InetAddress)">AsnOctets(java.net.InetAddress iad)</a></li>
+  <li>
+      <a href="api/uk/co/westhawk/snmp/stack/AsnOctets.html#AsnOctets(java.net.Inet4Address,%20byte)">AsnOctets(java.net.Inet4Address iad, byte t)</a>
+      , where t = SnmpConstants.IPADDRESS</li>
+</ol>
+<p>
+Note that the ASN.1 IP Address object only represents IPv4 addresses.
+</p>
+
+<p class="question"><a name="ipv6"></a>Does the stack support IPv6?</p>
+<p>
+Yes it does, as far as your operating and your j2se version do (or
+"don't" as we found out painfully).
+See the Networking IPv6 User Guide for 
+<a href="http://java.sun.com/j2se/1.4.2/docs/guide/net/ipv6_guide">J2SDK/JRE 1.4</a>
+and
+<a href="http://java.sun.com/j2se/1.5.0/docs/guide/net/ipv6_guide">JDK/JRE 5.0</a>
+and 
+<a href="http://developer.apple.com/documentation/Java/Conceptual/Java14Development/05-CoreJavaAPIs/CoreJavaAPIs.html">Core Java APIs on Mac OS X</a>.
+<br/>
+<br/>
+The stack doesn't do anything special to send packets over IPv6; it relies on
+the JVM (and hence the operating system).
+<br/>
+As of version 4_14, we added additional methods to the 
+<a href="api/uk/co/westhawk/snmp/stack/AsnOctets.html">AsnOctets</a>
+class to deal with IPv6 MIB values.
+Please note that the IPv6 address doesn't have its own ASN.1 type (like IPv4
+does). As far as we know, there are currently two MIB IPv6 address
+representations:
+</p>
+<ul>
+    <li>
+    Ipv6Address - see <a href="http://ietf.org/rfc/rfc2465.txt">IPV6-TC</a>
+    </li>
+    <li>
+    InetAddressIPv6 - see <a href="http://ietf.org/rfc/rfc4001.txt">INET-ADDRESS-MIB</a>
+    </li>
+</ul>
+<p>
+In both case the IPv6 address is a "TEXTUAL-CONVENTION" of an OCTET
+STRING (SIZE (16)). This means that the stack doesn't know when a MIB
+OID value is a IPv6 address. You will have to build that knowledge into
+your application.
+</p>
+
+
+<p class="question"><a name="timeout"></a>How can I set the timeout and the number of retries of a request?</p>
+
+<p>You can set both with the method <a href="api/uk/co/westhawk/snmp/stack/Pdu.html#setRetryIntervals(int[])"><code>Pdu.setRetryIntervals(int[])</code></a>.</p>
+
+<p class="question"><a name="trap_decode"></a>Why doesn't the stack decode incoming PDU requests or traps for me?</p>
+
+<p>
+Indeed the stack requires a SnmpContext to decode each incoming
+(unsolicited) PDU. This context needs to be configured  
+with the host name and parameters of your SNMP agent/manager.
+<br/>
+<br/>
+It would be possible for SNMPv1 and SNMPv2 to decode trap automatically,
+i.e. ignoring the host and community name. We don't think that this is a
+good idea, because:
+</p>
+<ul>
+  <li>it is a security problem - any fool can send a trap with a
+  spoofed 'from' address and your software will accept and decode it.
+  The only protection you have in v1 and v2c (and this isn't much) is
+  in the form of the shared secret of the community name.</li>
+  <li>it would cause the stack to behave differently for SNMPv3,
+  since unless you know stuff about the sender of a v3 trap you can't
+  authenticate it or decrypt it on the fly.</li>
+</ul>
+
+<hr width="100%" size="2">
+
+<h3 class="q"><a name="problem"></a>Problem solving:<br/></h3>
+
+<p class="question"><a name="threads"></a>Why doesn't the number of threads reduce?</p>
+
+<p>Make sure you call 
+<a href="./api/uk/co/westhawk/snmp/stack/AbstractSnmpContext.html#destroy()"><code>AbstractSnmpContext.destroy()</code></a> when you are finished with 
+a context. The method 
+<a href="./api/uk/co/westhawk/snmp/stack/AbstractSnmpContext.html#getDebugString()"><code>AbstractSnmpContext.getDebugString()</code></a> returns the 
+thread usage of the context.
+</p>
+
+<p class="question"><a name="badtype"></a><span style="font-weight: bold;">I get errors like </span><code style="font-weight: bold;">AsnObject.AsnMakeMe(): Bad Type 0xA6</code><span style="font-weight: bold;">. What do they mean?</span>
+</p>
+
+<p>This means that the PDU packet is malformed. Either the engine sent a
+malformed packet or the stack did not read in the whole message. The later
+can be tuned with the method <a href="api/uk/co/westhawk/snmp/stack/AbstractSnmpContext.html#setMaxRecvSize(int)"><code>AbstractSnmpContext.setMaxRecvSize(int no)</code></a>.
+</p>
+
+<p class="question"><a name="ui_hangs"></a>My user interface seems to hang. Any idea?</p>
+
+<p>If you are using Swing and you are changing your user interface in the
+<code>update()</code> or <code>propertyChange()</code> method, you should do 
+this via <code>Swing.InvokeLater()</code> to make sure the update is done on 
+the Swing thread. See AnnexModemStatusBean.java for an example.</p>
+
+<p class="question"><a name="display_string"></a>Why does <code>AsnOctets.toString()</code> print hex, instead of a readable String? or <br/> 
+Why does <code>AsnOctets.toString()</code> print a String, instead of a hex?</p>
+
+<p>
+The problem is that the stack has no MIB knowledge, so the method
+<a
+href="./api/uk/co/westhawk/snmp/stack/AsnOctets.html#toString()"><code>AsnOctets.toString()</code></a>
+does a best guess and tries to figure out whether the octets are
+printable or not.
+<br/>
+<br/>
+If you know the AsnOctets represent a DateAndTime use 
+<a
+href="./api/uk/co/westhawk/snmp/stack/AsnOctets.html#toCalendar()"><code>AsnOctets.toCalendar()</code></a>, 
+or a DisplayString use 
+<a
+href="./api/uk/co/westhawk/snmp/stack/AsnOctets.html#toDisplayString()"><code>AsnOctets.toDisplayString()</code></a>.
+<br/>
+<br/>
+In version 4_14 we have added the interface
+<a
+href="./api/uk/co/westhawk/snmp/stack/AsnOctetsPrintableFace.html"><code>uk.co.westhawk.snmp.stack.AsnOctetsPrintableFace</code></a>
+and the class
+<a
+href="./api/uk/co/westhawk/snmp/stack/DefaultAsnOctetsPrintable.html"><code>uk.co.westhawk.snmp.stack.DefaultAsnOctetsPrintable</code></a>
+to allow you to
+control this behaviour yourself. The interface also allows you to
+specify how to print the octets as InternationalDisplayString.
+</p>
+
+<hr width="100%" size="2">
+
+<h3 class="q"><a name="general"></a>General information:<br/></h3>
+
+<p class="question"><a name="test"></a>How did you test your stack?</p>
+
+<p>We have tested the v3 implementation against MG-SOFT's agent and NET-SNMP
+(formerly known as UCD-SNMP). Our users have used it against many other agents.
+As far as we know there is no standards body that tests SNMPv3 compliance.
+</p>
+
+<p>The test matrices on our last version is included in the distribution 
+file, see 
+<a href="../src/uk/co/westhawk/test/testIPv4.html">test.html</a> and 
+<a href="../src/uk/co/westhawk/test/trapIPv4.html">trap.html</a>. 
+More information on how the test works can be found in the javadoc.
+</p>
+
+<p class="question"><a name="vulnerable"></a>Is the stack vulnerable to malformed requests?</p>
+
+<p>Since the stack is written in Java and Java is immune to most types of
+buffer overrun, we are far better off than the C-based stacks.</p>
+
+<p>We did run the two trap tests of <a
+href="http://www.ee.oulu.fi/research/ouspg/protos/testing/c06/snmpv1/index.html">PROTOS</a>
+test suite against our stack. This is part of the 
+<a href="http://www.cert.org/advisories/CA-2002-03.html">CERT Advisory CA-2002-03</a>. 
+This caused some problems whilst decoding the packets. 
+The worse ones caused the stack to throw NullPointerException,
+ClassCastException and ArrayIndexOutOfBoundsException. 
+We amended the stack (version 6_0) so it deals with all 
+exceptions. Other packets only produced error messages.</p>
+
+<p>The bulk of the vulnerabilities are against agents, our stack is
+(mostly) a manager. If we ever extend the stack to become an agent, we
+will run the two request tests of the test suite as well.</p>
+
+<p class="question"><a name="SNMP_information"></a>Where can I find more information on SNMP?</p>
+
+<p>Please read the section in the <a href="./StackUsage.html">Stack Usage</a> 
+document.</p>
+
+
+<p class="question"><a name="license"></a>What about copyright, license and costs?</p>
+
+<p>Please read the section in the <a href="./StackUsage.html">Stack Usage</a> 
+document.</p>
+
+<p class="question"><a name="companies"></a>Which companies are using this stack?</p>
+
+<p>That is a little hard to say, since many use it for internal purposes 
+(or indeed in products) without informing us. Here are some links to
+companies we 
+<span style="text-decoration: underline;">know</span> have used it:
+</p>
+
+<ul>
+<li>Adherent, now part of 
+<a href="http://www.tek.com/Measurement/programs/cambridge">Tektronix Cambridge</a></li>
+<li><a href="http://www.msci.magic.net/visualization">Advanced Networking Group</a></li>
+<li><a href="http://www.vislink.com/companies/advent.php">Advent Communications</a></li>
+<li><a href="http://www.arsin.com/archive/archive26.htm">Arsin</a></li>
+<li><a href="http://www.aspect.com">Aspect</a></li>
+<li><a href="http://www.avitech.de">Avitech</a></li>
+<li><a href="http://www.bbn.com">BBN Technologies</a></li>
+<li><a href="http://www1.bell-labs.com/project/CorbaSnmp">Bell Labs</a></li>
+<li><a href="http://www.cherrymon.org">Cherry</a></li>
+<li><a
+href="http://www.cisco.com/univercd/cc/td/doc/product/vpn/monitor/rel_1_1/user_gd/v3bcpl.htm">Cisco Systems</a></li>
+<li><a href="http://www.cygsoft.com">Cygsoft</a></li>
+<li><a href="http://www.dfsoft.cz/Charon">DF soft</a></li>
+<li><a href="http://www.erggroup.com">ERG Group</a></li>
+<li><a href="http://www.greenpacket.com">Greenpacket</a></li>
+<li><a
+href="http://forums1.itrc.hp.com/service/forums/bizsupport/questionanswer.do?admit=716493758+1105025216194+28353475&amp;threadId=473487">HP - PCM+</a></li>
+<li><a href="http://www.imaginebroadband.com">Imagine Broadband</a></li>
+<li><a href="http://www.intel.com">Intel</a></li>
+<li><a href="http://www.iskratel.si">Iskratel</a></li>
+<li><a href="http://muvi.man.poznan.pl">Multicast Visualisation Tool (MUVI)</a></li>
+<li><a href="http://www.net2s.com">NET2S</a></li>
+<li><a href="http://www.netiq.com">NetIQ</a></li>
+<li><a href="http://www.netopia.com">Netopia</a></li>
+<li><a href="http://www.newbreak.com">New Break</a></li>
+<li><a href="http://www.phonologies.com">Phonologies</a></li>
+<!--
+<li><a href="http://www.provisionsoft.com">ProvisionSoft</a></li>
+-->
+<li><a href="http://www.regulussoft.com">RegulusSoft</a></li>
+<li><a href="http://www.reuters.com">Reuters</a></li>
+<li><a href="http://www.riftware.com">Riftware Development</a></li>
+<li><a href="http://www.roadrunner.com">Roadrunner</a></li>
+<li><a href="http://www.siemens.de">Siemens</a></li>
+<li><a href="http://www.nosc.mil">Spawar</a></li>
+<li><a href="http://www.stercomm.com">Sterling Commerce</a></li>
+<li><a href="http://www.tcom.ch/Projets/ENMP/SNMP.html">TCOM</a></li>
+<li><a href="http://www.travelocity.com">Travelocity</a></li>
+<li><a href="http://www.tripwire.com">Tripwire</a></li>
+<li><a href="http://www.verizon.com">Verizon</a></li>
+<li><a href="http://www.virtc.com">Virtual Technology</a></li>
+<li><a href="http://www.visionael.com">Visionael</a></li>
+<li><a href="http://www.voip.com.au">VoIP</a></li>
+<li><a href="http://www.westpoint.ltd.uk">Westpoint</a></li>
+<li><a href="http://www.zumanetworks.com">Zuma Networks</a></li>
+</ul>
+
+<hr>
+<p>
+<small>
+17 Oct 2007
+</small>
+</p>
+
+<p>
+<small>
+Post to the 
+<a
+href="https://lists.sourceforge.net/lists/listinfo/westhawksnmp-snmp"
+target="outside">snmp mailing list</a>
+or contact the
+<a href="mailto:snmp@westhawk.co.uk">snmp group</a>
+at
+<a href="http://www.westhawk.co.uk" target="outside">Westhawk Ltd</a>
+</small>
+</p>
+</body></html>

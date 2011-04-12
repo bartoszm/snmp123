@@ -1,0 +1,1636 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tests SYSTEM "./test.dtd">
+<!--
+-->
+<tests>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>noAuthUser</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="no"></auth>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error</result>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>MD5_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="no"></priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>MD5_DES_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>SHA_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="no"></priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>enterprises.412</comment>
+                <variable>1.3.6.1.4.1.412</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>SHA_DES_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>enterprises.412</comment>
+                <variable>1.3.6.1.4.1.412</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>MD5_AES128_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthMD5-Password</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>AES</pproto>
+                <ppassw>PrivAES-Password</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>enterprises.412</comment>
+                <variable>1.3.6.1.4.1.412</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>212.30.73.70</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>SHA_AES128_User</username>
+            <context>
+                <id>010000a1d41e4946</id>
+                <name>public</name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthSHA-Password</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>AES</pproto>
+                <ppassw>PrivAES-Password</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error - this is actually wrong, in SNMPv3 this should be "No access error"</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>enterprises.412</comment>
+                <variable>1.3.6.1.4.1.412</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>private</community>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result></result>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>host</comment>
+                <variable>1.3.6.1.2.1.25</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>private</community>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result></result>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>way</host>
+        <port>162</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="inform"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+                <value>100</value>
+            </oid>
+            <oid>
+                <comment>snmpTrapOID, warmStart</comment>
+                <variable>1.3.6.1.6.3.1.1.4.1.0</variable>
+                <value>1.3.6.1.6.3.1.1.5.2</value>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>162</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>privUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="inform"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+                <value>100</value>
+            </oid>
+            <oid>
+                <comment>snmpTrapOID, warmStart</comment>
+                <variable>1.3.6.1.6.3.1.1.4.1.0</variable>
+                <value>1.3.6.1.6.3.1.1.5.2</value>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>privUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>50</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such object</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>TestPPass</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>averylongauthenticationpassword?areyousureyouneedthislongpassword?</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>anotherverylongprivacypassword?areyousureyouneedthislongpassword?</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such instance</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>authSHAUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="no"></priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>50</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such object</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>way</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>privSHAUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>DES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>50</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such object</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>apso</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>privMD5AESUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>MD5</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>AES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>50</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such object</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="3"/>
+        <host>apso</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <usm>
+            <username>privSHAAESUser</username>
+            <context>
+                <id></id>
+                <name></name>
+            </context>
+            <auth ado="yes">
+                <aproto>SHA1</aproto>
+                <apassw>AuthPassword</apassw>
+            </auth>
+            <priv pdo="yes">
+                <pproto>AES</pproto>
+                <ppassw>PrivPassword</ppassw>
+            </priv>
+        </usm>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>50</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such object</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Not writable error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>usmStats</comment>
+                <variable>1.3.6.1.6.3.15.1.1</variable>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>selidor</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+        </request>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <result>incorrect packet</result>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>selidor</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>host</comment>
+                <variable>1.3.6.1.2.1.25</variable>
+            </oid>
+            <result>Ends in General error</result>
+        </request>
+    </test>
+    <test>
+        <version no="1"/>
+        <host>jessage</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Timed out</result>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>jessage</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error - this is actually wrong, since in SNMPv2c is should be "No access error"</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>Timed out</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>host</comment>
+                <variable>1.3.6.1.2.1.25</variable>
+            </oid>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>jessage</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>private</community>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Hidden under desk</value>
+            </oid>
+        </request>
+    </test>
+    <!--
+    <test>
+        <version no="1"/>
+        <host>host50</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1.1</variable>
+            </oid>
+            <result>No such name error</result>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No such name error</result>
+        </request>
+    </test>
+    <test>
+        <version no="2c"/>
+        <host>host50</host>
+        <port>161</port>
+        <bind>0.0.0.0</bind>
+        <socket_type type="STD"/>
+        <community>public</community>
+        <request type="getNext"> 
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+        </request>
+        <request type="getBulk"> 
+            <oid>
+                <comment>sysUpTime</comment>
+                <variable>1.3.6.1.2.1.1.3</variable>
+            </oid>
+            <oid>
+                <comment>system</comment>
+                <variable>1.3.6.1.2.1.1</variable>
+            </oid>
+            <non_rep>1</non_rep>
+            <max_rep>5</max_rep>
+        </request>
+        <request type="get"> 
+            <oid>
+                <comment>sysDescr.0</comment>
+                <variable>1.3.6.1.2.1.1.1.0</variable>
+            </oid>
+        </request>
+        <request type="set"> 
+            <oid>
+                <comment>sysLocation.0</comment>
+                <variable>1.3.6.1.2.1.1.6.0</variable>
+                <value>Westhawk Ltd</value>
+            </oid>
+            <result>No access error</result>
+        </request>
+        <request type="mib"> 
+            <oid>
+                <comment>host</comment>
+                <variable>1.3.6.1.2.1.25</variable>
+            </oid>
+        </request>
+    </test>
+    -->
+
+</tests>

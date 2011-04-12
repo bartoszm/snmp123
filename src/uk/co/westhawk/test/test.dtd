@@ -1,0 +1,69 @@
+<!-- /*
+ * NAME
+ *      $RCSfile: test.dtd,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.5 $
+ *      $Author: birgita $
+ * CREATED
+ *      $Date: 2009/03/05 12:59:50 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ */ -->
+
+<!-- all tests -->
+<!ELEMENT tests (test*)>
+
+<!-- one test -->
+<!ELEMENT test (version, host, port, bind, socket_type, (community | usm), request*, result?)>
+
+<!-- test elements -->
+<!ELEMENT version EMPTY>
+  <!ATTLIST version no (1 | 2c | 3) "1">
+<!ELEMENT host (#PCDATA)>
+<!ELEMENT port (#PCDATA)>
+<!ELEMENT bind (#PCDATA)>
+<!ELEMENT socket_type EMPTY>
+  <!ATTLIST socket_type type (STD | NET | TCP) "STD">
+
+<!ELEMENT community (#PCDATA)>
+
+
+<!-- usm elements -->
+<!ELEMENT usm (username, context, auth, priv?)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT context (id, name)>
+<!ELEMENT id (#PCDATA)> 
+<!ELEMENT name (#PCDATA)> 
+
+<!ELEMENT auth (aproto, apassw)?>
+<!ATTLIST auth ado (yes | no) "no">
+
+<!-- MD5 or SHA1 -->
+<!ELEMENT aproto (#PCDATA)>
+<!ELEMENT apassw (#PCDATA)> 
+
+<!ELEMENT priv (pproto, ppassw?)>
+<!ATTLIST priv pdo (yes | no) "no">
+
+<!-- DES or AES -->
+<!ELEMENT pproto (#PCDATA)>
+<!ELEMENT ppassw (#PCDATA)>
+
+
+<!-- request elements -->
+<!ELEMENT request (oid*, non_rep?, max_rep?, result?)>
+  <!ATTLIST request 
+            type (set | get | getNext | getBulk | mib | inform ) "getNext">
+
+<!ELEMENT oid (comment?, variable, value?)>
+<!ELEMENT variable (#PCDATA)>
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT comment (#PCDATA)>
+<!ELEMENT result (#PCDATA)>
+
+<!ELEMENT non_rep (#PCDATA)>
+<!ELEMENT max_rep (#PCDATA)>

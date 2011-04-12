@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+See also StackUsage document on how to run an example. 
+To run, you need to have ANT_HOME and JAVA_HOME environment variables
+set.
+-->
+<target name="runExample" description="Compiles and Runs an example application">
+    <property name="v" value="1"/>
+    <property name="package.name" value="uk.co.westhawk.examplev${v}"/>
+    <property name="package.dir" value="${src.dir}/uk/co/westhawk/examplev${v}"/>
+
+    <property name="classname" value="get_next"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}.properties"/>
+    <!--
+    <property name="propertiesfile" value="${package.dir}/host50.properties"/>
+    -->
+
+    <antcall target="_runExample">
+        <param name="package.name" value="${package.name}"/>
+        <param name="package.dir" value="${package.dir}"/>
+        <param name="classname" value="${classname}"/>
+        <param name="propertiesfile" value="${propertiesfile}"/>
+    </antcall>
+</target>
+
+
+
+
+<target name="runReceiveTrap" description="Runs ReceiveTrap">
+    <property name="v" value="1"/>
+    <property name="package.name" value="uk.co.westhawk.examplev${v}"/>
+    <property name="package.dir" value="${src.dir}/uk/co/westhawk/examplev${v}"/>
+
+    <property name="classname" value="ReceiveTrap"/>
+
+    <property name="propertiesfile" value="${package.dir}/${classname}.properties"/>
+    <!--
+    <property name="propertiesfile" value="${package.dir}/${classname}MD5.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}MD5DES.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}SHA.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}SHADES.properties"/>
+    -->
+
+    <antcall target="_runExample">
+        <param name="package.name" value="${package.name}"/>
+        <param name="package.dir" value="${package.dir}"/>
+        <param name="classname" value="${classname}"/>
+        <param name="propertiesfile" value="${propertiesfile}"/>
+    </antcall>
+</target>
+
+
+
+<target name="runSendTrap" description="Runs SendTrap">
+    <property name="v" value="1"/>
+    <property name="package.name" value="uk.co.westhawk.examplev${v}"/>
+    <property name="package.dir" value="${src.dir}/uk/co/westhawk/examplev${v}"/>
+
+    <property name="classname" value="SendTrap"/>
+
+    <property name="propertiesfile" value="${package.dir}/${classname}.properties"/>
+    <!--
+    <property name="propertiesfile" value="${package.dir}/${classname}MD5.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}MD5DES.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}SHA.properties"/>
+    <property name="propertiesfile" value="${package.dir}/${classname}SHADES.properties"/>
+    -->
+
+    <antcall target="_runExample">
+        <param name="package.name" value="${package.name}"/>
+        <param name="package.dir" value="${package.dir}"/>
+        <param name="classname" value="${classname}"/>
+        <param name="propertiesfile" value="${propertiesfile}"/>
+    </antcall>
+</target>
+
+
+
+<target name="_runExample" description="Compiles and Runs an example application">
+
+    <!-- should not need to change the below -->
+    <echo message="run ${package.name}.${classname} ${propertiesfile}"/>
+
+    <tstamp/>
+    <mkdir dir="${classes.dir}"/>
+
+    <!-- Move one example out of the way, because it won't compile 
+         like this -->
+    <property name="file" 
+              value="${src.dir}/uk/co/westhawk/examplev1/GenericGetOne.java"/>
+    <available property="isFile"
+               file="${file}"/>
+    <antcall target="_moveGenericGetOne"/>
+
+    <!-- compile the example -->
+    <javac destdir="${classes.dir}"
+           debug="${javac.debug}"
+           deprecation="on"
+           verbose="false">
+        <src>
+            <pathelement path="${package.dir}"/>
+            <pathelement path="${src.dir}/uk/co/westhawk/visual"/>
+        </src>
+        <classpath>
+            <pathelement location="${table.jar}"/>
+            <pathelement location="${snmp.jar}"/>
+            <pathelement location="${prefuse.jar}"/>
+            <pathelement location="${classes.dir}"/>
+        </classpath>
+    </javac>
+
+    <!-- the file back -->
+    <move file="${file}.tmp" tofile="${file}"/>
+
+    <!-- run the example -->
+    <java classname="${package.name}.${classname}" 
+          fork="true">
+        <classpath>
+            <pathelement location="${table.jar}"/>
+            <pathelement location="${snmp.jar}"/>
+            <pathelement location="${prefuse.jar}"/>
+            <pathelement location="${classes.dir}"/>
+        </classpath>
+        <arg value="${propertiesfile}"/>
+    </java>
+
+</target>
+
+
+<target name="_moveGenericGetOne" if="isFile">
+    <move file="${file}" tofile="${file}.tmp"/>
+</target>

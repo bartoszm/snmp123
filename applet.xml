@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<target name="jarApplet"
+        description="Target to create the GenericGetOne applet jar file and sign it" depends="compile">
+
+    <property name="build.compiler" value="javac1.4"/>
+    <mkdir dir="${lib.dir}"/>
+
+    <jar destfile="${generic.jar}"
+         basedir="${classes.dir}"
+         manifest="beansManifestIn.mf">
+        <include name="uk/co/westhawk/examplev1/GenericGetOne**"/>
+        <include name="org/bouncycastle/crypto/**"/>
+        <include name="uk/co/westhawk/snmp/**"/>
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stack - Applet"/>
+                <attribute name="Implementation-Version" value="${impl_version}"/>
+            </section>
+        </manifest>
+    </jar>
+
+    <antcall target="signjar">
+        <param name="tosign.jar" value="${generic.jar}"/>
+    </antcall>
+</target>
+
+
+<!-- Verify that we have got the password for the keystore -->
+<target name="checkKeystorePass" unless="env.KEYSTORE_PASS">
+    <fail message="Environment variable KEYSTORE_PASS isn't set, jars can't be signed"/>
+</target>
+
+
+<!-- Sign the jar file -->
+<target name="signjar" description="Sign a jar file" depends="checkKeystorePass">
+    <signjar jar="${tosign.jar}" 
+        alias="westhawk"
+        storepass="${keystore.pass}"
+        keystore="/project/westhawk/keys/codesign/thawte08/westhawk.keystore"/>
+</target>
+

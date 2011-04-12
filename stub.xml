@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+The property mibble.dir is defined in build.xml and (maybe) overwritten
+in build.properties
+-->
+<fileset id="mibble.jars" dir="${mibble.dir}">
+    <include name="lib/grammatica-bin-1.4.jar"/>
+    <include name="lib/mibble-parser-2.5.jar"/>
+    <include name="lib/mibble-mibs-2.5.jar"/>
+</fileset>
+<path id="mibble.classpath">
+    <fileset refid="mibble.jars"/>
+</path>
+
+
+<target name="runStubBrowser" 
+        description="Runs an example application"
+        depends="compileStubBrowser">
+
+    <property name="package.name" value="uk.co.westhawk.stub"/>
+    <property name="package.dir" value="uk/co/westhawk/stub"/>
+    <property name="classname" value="StubBrowser"/>
+
+    <echo message="run ${package.name}.${classname} "/>
+
+    <!-- run the example -->
+    <java classname="${package.name}.${classname}" 
+          fork="true">
+        <classpath>
+            <pathelement location="${snmp.jar}"/>
+            <path refid="mibble.classpath"/>
+            <pathelement location="${classes.dir}"/>
+        </classpath>
+        <arg value="${mibble.dir}/src/mibs/ietf/RFC1213-MIB"/>
+        <arg value="${mibble.dir}/src/mibs/ietf/SNMPv2-MIB"/>
+        <arg
+        value="/opt/scotty-2.1.11/lib/tnm2.1.11/mibs/linksys/LINKSYS-MODEL-MIB.mib"/>
+        <!-- add here your additional MIB files -->
+    </java>
+</target>
+
+
+<target name="buildStubBrowser" if="mibble.dir">
+    <antcall target="clean"/>
+    <antcall target="compileStubBrowser"/>
+    <antcall target="jarStubBrowser"/>
+    <antcall target="zipStubBrowser"/>
+</target>
+
+
+<target name="compileStubBrowser"
+    description="Compiling the Stub example">
+    <tstamp/>
+    <mkdir dir="${classes.dir}"/>
+
+    <javac destdir="${classes.dir}"
+           debug="${javac.debug}"
+           deprecation="on"
+           verbose="false">
+        <src>
+            <pathelement path="${src.dir}/uk"/>
+        </src>
+        <include name="**/westhawk/stub/*"/>
+        <classpath>
+            <pathelement location="${snmp.jar}"/>
+            <path refid="mibble.classpath"/>
+        </classpath>
+    </javac>
+</target>
+
+
+
+
+<!--
+<target name="javadocStubBrowser" 
+        description="Generates javadoc documentation">
+    <tstamp/>
+    <mkdir dir="${javadoc.dir}"/>
+
+    <property name="title" value="SNMP Stack ${version.no}"/>
+
+    <javadoc destdir="${javadoc.dir}"
+             header="&lt;i>${title}&lt;/i>"
+             doctitle="${title}"
+             windowtitle="${title}" 
+             additionalparam="-breakiterator">
+        <packageset dir="${src.dir}">
+            <include name="uk/co/westhawk/stub/**"/>
+        </packageset>
+        <classpath>
+            <path refid="general.classpath"/>
+            <path refid="mibble.classpath"/>
+        </classpath>
+    </javadoc>
+</target>
+-->
+
+
+<target name="jarStubBrowser"
+        description="Target to create the stubbrowser jar file">
+
+    <property name="build.compiler" value="javac1.4"/>
+    <mkdir dir="${lib.dir}"/>
+    <jar destfile="${lib.dir}/stubBrowser${version.no}.jar"
+         basedir="${classes.dir}">
+        <include name="uk/co/westhawk/stub/**"/>
+        <manifest>
+            <section name="uk/co/westhawk/">
+                <attribute name="Implementation-Title" value="Westhawk Java SNMP Stub Browser"/>
+                <attribute name="Implementation-Version" value="${impl_version}"/>
+            </section>
+        </manifest>
+    </jar>
+</target>
+
+
+<target name="zipStubBrowser" 
+        description="Zip up files for the stubbrowser distribution">
+
+    <delete file="stubBrowser${version.no}.zip"/>
+    <zip destfile="stubBrowser${version.no}.zip"
+         basedir=".">
+         <include name="*.xml"/>
+         <include name="*.properties"/>
+         <include name="${lib.dir}/stubBrowser${version.no}.jar"/>
+         <include name="${src.dir}/uk/co/westhawk/stub/**"/>
+
+         <exclude name="**/CVS*/**"/>
+         <exclude name="**/*~"/>
+         <exclude name="**/*.old"/>
+         <exclude name="**/*.swp"/>
+         <exclude name="**/*out*"/>
+         <exclude name="**/*.diff"/>
+         <exclude name="**/Makefile*"/>
+         <exclude name="**/package.html*"/>
+    </zip>
+</target>
+
+

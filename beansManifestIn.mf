@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+
+Name: uk/co/westhawk/snmp/beans/AscendActiveSessionBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/InterfaceIndexesBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/IsHostReachableBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/NTPrintQBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/NTServiceNamesBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/NTSharedResBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/NTUserNamesBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/NcdPerfDataBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/OneInterfaceBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/OneNTPrintQBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/OneNTServiceBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/snmp/beans/OneNTSharedResBean.class
+Java-Bean: True
+
+Name: uk/co/westhawk/visual/BareGraph.class
+Java-Bean: True
+
+Name: uk/co/westhawk/visual/Graph.class
+Java-Bean: True
+
+Name: uk/co/westhawk/visual/GraphDataSet.class
+Java-Bean: True
+

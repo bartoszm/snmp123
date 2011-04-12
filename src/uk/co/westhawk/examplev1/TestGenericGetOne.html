@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=macintosh"/>
+  <title>
+      GenericGetOne test page
+  </title>
+  <style type="text/css">
+      td.col1
+      {
+          vertical-align: top;
+      }
+  </style>
+
+  <script language="JavaScript" type="text/javascript">
+  //Helper methods
+      function createApplet(debug)
+      {
+          // Change these variable, if need be. 
+          // Leave the rest of the function!
+          var class = "uk.co.westhawk.examplev1.GenericGetOne";
+          var jar = "/GenericGetOne.jar";
+
+
+          if (debug == null)
+          {
+              debug = 0;
+          }
+
+          document.write('<object id="snmpApplet"');
+          if (navigator.userAgent.toLowerCase().indexOf("msie") > -1)
+          {
+              //IE
+              document.write('classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"');
+              document.write('height="1" width="1"');
+              document.write('hspace="0" vspace="0" align="middle">');
+              document.write('<param name="code" value="' + class + '"/>');
+              document.write('<param name="archive" value="' + jar + '"/>');
+          }
+          else
+          {
+              //Mozilla etc.
+              document.write('classid="java:' + class + '.class"');
+              document.write('type="application/x-java-applet"');
+              document.write('archive="' + jar + '"');
+              document.write('height="1" width="1"');
+              document.write('hspace="0" vspace="0" align="middle">');
+          }
+          document.write('<param name="mayscript" value="true"/>');
+          document.write('<param name="debug" value="' + debug + '"/>');
+          document.write('<\/object>');
+      }
+
+      function getSnmpApplet()
+      {
+          var applet = document.getElementById('snmpApplet');
+          return applet;
+      }
+  </script>
+
+  <script language="JavaScript" type="text/javascript">
+  // All the functions that call the applet
+      function send() 
+      {
+          var host = document.getElementById('host').value;
+          var port = document.getElementById('port').value;
+          var comm = document.getElementById('comm').value;
+          var oid = document.getElementById('oid').value;
+
+          // 'setValue' is name of callback function
+          send2(host, port, comm, oid, 'setValue');
+      }
+
+      function send2(host, port, comm, oid, callback) 
+      {
+          /*
+          alert('send2: ' + host + ', ' + port + ', ' 
+              + comm + ', ' + oid + ', ' + callback);
+           */
+          var snmpApp = getSnmpApplet();
+          if (snmpApp)
+          {
+              snmpApp.send(host, port, comm, oid, callback);
+          }
+          else
+          {
+              alert('Error: No snmpApp!');
+          }
+          return false;
+      }
+  </script>
+
+  <script language="JavaScript" type="text/javascript">
+  // All the functions called by the applet
+      function loaded()
+      {
+          // Do NOT call this function yourself. It is called by the
+          // applet when loaded.
+
+          // alert('loaded');
+          // Enable the 'Get Next' button
+          var getnextElem = document.getElementById('getnext');
+          getnextElem.disabled = false;
+      }
+
+      // This is the name of the callback function passed to the applet
+      // in send()
+      function setValue(host, port, comm, requestOid, responseOid, value, error)
+      {
+          /*
+          alert('setValue: ' + host + ', ' + port + ', ' + comm 
+              + ', ' + requestOid + ', ' + responseOid 
+              + ', ' + value + ', ' + error);
+           */
+          var hostElem = document.getElementById('host_out');
+          hostElem.innerHTML = host;
+
+          var portElem = document.getElementById('port_out');
+          portElem.innerHTML = port;
+
+          var commElem = document.getElementById('comm_out');
+          commElem.innerHTML = comm;
+
+          var requestOidElem = document.getElementById('requestOid_out');
+          requestOidElem.innerHTML = requestOid;
+
+          var responseOidElem = document.getElementById('responseOid_out');
+          responseOidElem.innerHTML = responseOid;
+
+          var valueElem = document.getElementById('value_out');
+          valueElem.innerHTML = value;
+
+          var errorElem = document.getElementById('error_out');
+          errorElem.innerHTML = error;
+      }
+  </script>
+</head>
+<body>
+
+<form action="javascript:send()">
+    <table width="70%">
+        <tr>
+            <th width="30%" align="left">Name</th>
+            <th align="left">Value</th>
+        </tr>
+        <tr>
+            <td class="col1">Host</td>
+            <td><input type="text" id="host" value="ns.westhawk.co.uk"/></td>
+        </tr>
+        <tr>
+            <td class="col1">Port</td>
+            <td><input type="text" id="port" value="161"/></td>
+        </tr>
+        <tr>
+            <td class="col1">Community name</td>
+            <td><input type="text" id="comm" value="public"/></td>
+        </tr>
+        <tr>
+            <td class="col1">OID</td>
+            <td><input type="text" id="oid" value=""/></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" disabled="true" id="getnext" value="Get Next"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+<table width="70%">
+    <tr>
+        <th width="30%" align="left">Name</th>
+        <th align="left">Value</th>
+    </tr>
+    <tr><td class="col1">Host</td><td id="host_out"></td></tr>
+    <tr><td class="col1">Port</td><td id="port_out"></td></tr>
+    <tr><td class="col1">Comm</td><td id="comm_out"></td></tr>
+    <tr><td class="col1">Request Oid</td><td id="requestOid_out"></td></tr>
+    <tr><td class="col1">Response Oid</td><td id="responseOid_out"></td></tr>
+    <tr><td class="col1">Value</td><td id="value_out"></td></tr>
+    <tr><td class="col1">Error</td><td id="error_out"></td></tr>
+</table>
+
+<script type="text/javascript">createApplet(4);</script>
+
+</body>
+</html>

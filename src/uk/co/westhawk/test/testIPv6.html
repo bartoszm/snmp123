@@ -1,0 +1,1363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<title>SNMP Test suite</title>
+</head>
+<body>
+<a name="top" />
+<a name="agents" />
+<h1>Manager Test Suite - List of Test SNMP agents</h1>
+<table border="1" width="95%">
+<tr>
+<th>Platform</th>
+<th>Machine</th>
+<th>SNMPv1</th>
+<th>SNMPv2c</th>
+<th>SNMPv3</th>
+<th>IPv?</th>
+<th>note</th>
+</tr>
+<tr>
+<td>MG-SOFT on NT</td>
+<td>212.30.73.70</td>
+<td>N </td>
+<td>N </td>
+<td>Y </td>
+<td>IPv4 </td>
+<td>See MG-SOFT SNMPv3 impl for Windows 
+<a href="http://www.mg-soft.com/snmpv3.html">remote</a>
+</td>
+</tr>
+<tr>
+<td>Router Cisco 800 series</td>
+<td>host50</td>
+<td>Y </td>
+<td>Y </td>
+<td>Y </td>
+<td>IPv4 </td>
+</tr>
+<tr>
+<td>Windows XP</td>
+<td>jessage</td>
+<td>Y </td>
+<td>Y </td>
+<td>N </td>
+<td>IPv4 </td>
+</tr>
+<tr>
+<td>Windows 2000</td>
+<td>selidor</td>
+<td>Y </td>
+<td>Y </td>
+<td>N </td>
+<td>IPv4 </td>
+</tr>
+<tr>
+<td>NET-SNMP on Linux RedHat 7.2</td>
+<td>way</td>
+<td>Y </td>
+<td>Y </td>
+<td>Y </td>
+<td>IPv4 </td>
+</tr>
+<tr>
+<td>NET-SNMP on Linux Suse 10.0</td>
+<td>apso</td>
+<td>Y </td>
+<td>Y </td>
+<td>Y </td>
+<td>IPv4 </td>
+</tr>
+<tr>
+<td>NET-SNMP on Fedora core 4</td>
+<td>hort</td>
+<td>Y </td>
+<td>Y </td>
+<td>Y </td>
+<td>IPv6 </td>
+</tr>
+<tr>
+<td>Solaris 2.8</td>
+<td>roke</td>
+<td>Y </td>
+<td>N </td>
+<td>N </td>
+<td>IPv6 </td>
+</tr>
+<tr>
+<td>Mac OS X 10.4</td>
+<td>sleep</td>
+<td>N </td>
+<td>N </td>
+<td>N </td>
+<td>IPv6 </td>
+</tr>
+</table>
+<h3>List of tests</h3>
+<ul>
+<li>
+<a href="#h[fec0::28]_3_yes_MD5_yes_DES">[fec0::28]_3_yes_MD5_yes_DES</a>
+</li>
+<li>
+<a href="#h[fec0::28]_3_yes_SHA1_no">[fec0::28]_3_yes_SHA1_no</a>
+</li>
+<li>
+<a href="#h[fec0::28]_3_yes_SHA1_yes_DES">[fec0::28]_3_yes_SHA1_yes_DES</a>
+</li>
+</ul>
+<a name="h[fec0::28]_3_yes_MD5_yes_DES" />
+<h2>[fec0::28]_3_yes_MD5_yes_DES</h2>
+<table border="0" width="95%">
+<tr>
+<td valign="top" width="35%">
+<table border="1" width="100%">
+<tr>
+<td>
+<b>Version</b>
+</td>
+<td>3</td>
+</tr>
+<tr>
+<td>
+<b>Host</b>
+</td>
+<td>[fec0::28]</td>
+</tr>
+<tr>
+<td>
+<b>Port</b>
+</td>
+<td>161</td>
+</tr>
+<tr>
+<td>
+<b>Socket</b>
+</td>
+<td>STD</td>
+</tr>
+<tr>
+<td>
+<b>Username</b>
+</td>
+<td>privUser</td>
+</tr>
+<tr>
+<td>
+<b>Context Id</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Context Name</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Authetication ?</b>
+</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>
+<b>Auth Protocol</b>
+</td>
+<td>MD5</td>
+</tr>
+<tr>
+<td>
+<b>Auth Password</b>
+</td>
+<td>AuthPassword</td>
+</tr>
+<tr>
+<td>
+<b>Privacy ?</b>
+</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>
+<b>Priv Password</b>
+</td>
+<td>PrivPassword</td>
+</tr>
+</table>
+</td>
+<td valign="top" width="65%">
+<table border="1" width="100%">
+<tr>
+<th>Request</th>
+<th>Oid</th>
+<th>Value</th>
+<th>Comment</th>
+<th>Non Rep</th>
+<th>Max Rep</th>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1.1.0</td>
+<td />
+<td>sysDescr</td>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">5</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">50</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="1">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="51">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">inform</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td>100</td>
+<td>sysUpTime</td>
+</tr>
+<tr>
+<td>1.3.6.1.6.3.1.1.4.1.0</td>
+<td>1.3.6.1.6.3.1.1.5.2</td>
+<td>snmpTrapOID, warmStart</td>
+</tr>
+<tr>
+<td rowspan="1">mib</td>
+<td> 1.3.6.1.2.1.4.24.7.1</td>
+<td />
+<td>inetCidrRoute</td>
+</tr>
+<tr>
+<td rowspan="1">set</td>
+<td>1.3.6.1.2.1.1.6.0</td>
+<td>Westhawk Ltd</td>
+<td>sysLocation</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>
+<a href="#top">Back to Top</a>
+</p>
+<a name="h[fec0::28]_3_yes_SHA1_no" />
+<h2>[fec0::28]_3_yes_SHA1_no</h2>
+<table border="0" width="95%">
+<tr>
+<td valign="top" width="35%">
+<table border="1" width="100%">
+<tr>
+<td>
+<b>Version</b>
+</td>
+<td>3</td>
+</tr>
+<tr>
+<td>
+<b>Host</b>
+</td>
+<td>[fec0::28]</td>
+</tr>
+<tr>
+<td>
+<b>Port</b>
+</td>
+<td>161</td>
+</tr>
+<tr>
+<td>
+<b>Socket</b>
+</td>
+<td>STD</td>
+</tr>
+<tr>
+<td>
+<b>Username</b>
+</td>
+<td>authSHAUser</td>
+</tr>
+<tr>
+<td>
+<b>Context Id</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Context Name</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Authetication ?</b>
+</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>
+<b>Auth Protocol</b>
+</td>
+<td>SHA1</td>
+</tr>
+<tr>
+<td>
+<b>Auth Password</b>
+</td>
+<td>AuthPassword</td>
+</tr>
+<tr>
+<td>
+<b>Privacy ?</b>
+</td>
+<td>no</td>
+</tr>
+</table>
+</td>
+<td valign="top" width="65%">
+<table border="1" width="100%">
+<tr>
+<th>Request</th>
+<th>Oid</th>
+<th>Value</th>
+<th>Comment</th>
+<th>Non Rep</th>
+<th>Max Rep</th>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1.1.0</td>
+<td />
+<td>sysDescr</td>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">5</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">50</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="1">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="51">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">inform</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td>100</td>
+<td>sysUpTime</td>
+</tr>
+<tr>
+<td>1.3.6.1.6.3.1.1.4.1.0</td>
+<td>1.3.6.1.6.3.1.1.5.2</td>
+<td>snmpTrapOID, warmStart</td>
+</tr>
+<tr>
+<td rowspan="1">mib</td>
+<td> 1.3.6.1.2.1.4.24.7.1</td>
+<td />
+<td>inetCidrRoute</td>
+</tr>
+<tr>
+<td rowspan="1">set</td>
+<td>1.3.6.1.2.1.1.6.0</td>
+<td>Westhawk Ltd</td>
+<td>sysLocation</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>
+<a href="#top">Back to Top</a>
+</p>
+<a name="h[fec0::28]_3_yes_SHA1_yes_DES" />
+<h2>[fec0::28]_3_yes_SHA1_yes_DES</h2>
+<table border="0" width="95%">
+<tr>
+<td valign="top" width="35%">
+<table border="1" width="100%">
+<tr>
+<td>
+<b>Version</b>
+</td>
+<td>3</td>
+</tr>
+<tr>
+<td>
+<b>Host</b>
+</td>
+<td>[fec0::28]</td>
+</tr>
+<tr>
+<td>
+<b>Port</b>
+</td>
+<td>161</td>
+</tr>
+<tr>
+<td>
+<b>Socket</b>
+</td>
+<td>STD</td>
+</tr>
+<tr>
+<td>
+<b>Username</b>
+</td>
+<td>privSHAUser</td>
+</tr>
+<tr>
+<td>
+<b>Context Id</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Context Name</b>
+</td>
+<td />
+</tr>
+<tr>
+<td>
+<b>Authetication ?</b>
+</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>
+<b>Auth Protocol</b>
+</td>
+<td>SHA1</td>
+</tr>
+<tr>
+<td>
+<b>Auth Password</b>
+</td>
+<td>AuthPassword</td>
+</tr>
+<tr>
+<td>
+<b>Privacy ?</b>
+</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>
+<b>Priv Password</b>
+</td>
+<td>PrivPassword</td>
+</tr>
+</table>
+</td>
+<td valign="top" width="65%">
+<table border="1" width="100%">
+<tr>
+<th>Request</th>
+<th>Oid</th>
+<th>Value</th>
+<th>Comment</th>
+<th>Non Rep</th>
+<th>Max Rep</th>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1.1.0</td>
+<td />
+<td>sysDescr</td>
+</tr>
+<tr>
+<td rowspan="1">get</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">5</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">getBulk</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td />
+<td>sysUpTime</td>
+<td rowspan="2">1</td>
+<td rowspan="2">50</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="1">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="51">getNext</td>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1</td>
+<td />
+<td>system</td>
+</tr>
+<tr>
+<td rowspan="2">inform</td>
+<td>1.3.6.1.2.1.1.3</td>
+<td>100</td>
+<td>sysUpTime</td>
+</tr>
+<tr>
+<td>1.3.6.1.6.3.1.1.4.1.0</td>
+<td>1.3.6.1.6.3.1.1.5.2</td>
+<td>snmpTrapOID, warmStart</td>
+</tr>
+<tr>
+<td rowspan="1">mib</td>
+<td> 1.3.6.1.2.1.4.24.7.1</td>
+<td />
+<td>inetCidrRoute</td>
+</tr>
+<tr>
+<td rowspan="1">set</td>
+<td>1.3.6.1.2.1.1.6.0</td>
+<td>Westhawk Ltd</td>
+<td>sysLocation</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<p>
+<a href="#top">Back to Top</a>
+</p>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<!-- /*
+ * NAME
+ *      $RCSfile: notes.html,v $
+ * DESCRIPTION
+ *      [given below]
+ * DELTA
+ *      $Revision: 1.4 $
+ *      $Author: birgita $
+ * CREATED
+ *      $Date: 2009/03/18 12:15:42 $
+ * COPYRIGHT
+ *      Westhawk Ltd
+ * TO DO
+ *
+ */ -->
+<title>Running the stack in Oracle</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="../../../../general.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<h1>Westhawk SNMP Stack in Oracle&trade; 9i.</h1>
+<p>
+This note explains and gives examples how to use the Westhawk SNMP
+stack to send SNMPv2 traps in an Oracle environment. Due to the
+unusual threading model (actually threads don't work at all :-) a dedicated
+set of classes has to be used to avoid
+starting threads that are difficult to kill in JVM.
+</p>
+<p>
+The stack has been amended to <span style="font-weight: bold;">send</span>
+(i.e. not receive!) traps in an Oracle environment for SNMP
+<span style="font-weight: bold;">v1 and v2c</span>.
+It will probably not be possible to do more in Oracle.
+</p>
+<p>
+Running the stack in Oracle requires sufficient knowledge of Oracle,
+Java, SNMP and our stack.
+</p>
+
+<h2>Environment</h2>
+<p>
+Oracle runs JDK 1.2.X, so source files have to be 
+compiled with a compatible version. The Ant targets can be found in
+<code>oracle.xml</code> in the root directory of the stack.
+</p>
+<p>
+The example is tested in the following environment:
+</p>
+<ul>
+  <li>Oracle9i Enterprise Edition Release 9.2.0.4.0</li>
+  <li>Linux RedHat 8.0</li>
+  <li>Ant 1.5.4</li>
+</ul>
+
+<p>We run the trap example using XSQL using</p>
+<ul>
+<li>Tomcat Version 4.1.27</li>
+<li>XSQL 9.2.0.6 (part of Oracle 9i)</li>
+</ul>
+<p>However, the later are not necessary for the traps to work!</p>
+
+
+<h2>The Oscar Example</h2>
+<p>
+The directory <code>uk/co/westhawk/nothread/oscar</code> contains the
+Oscar example. This example is a proof-of-principle example that has nothing
+to do with the stack. The Oscar class has one static String method
+</p>
+
+<pre>
+public static String quote()
+{
+    return "I can resist everything except temptation.";
+}
+</pre>
+<p>
+The example creates a stored function in PL/SQL with the call spec for
+the method and then calls the example using SQL.
+The example uses the <code>scott</code> schema. This schema is used in
+most of Oracle's examples and is usually created during Oracle's
+installation time.
+</p>
+
+<ul>
+  <li><code>Oscar.java</code> - The java source file</li>
+  <li><code>ant loadOscar</code> - The Ant target that loads the
+  class file, using the Oracle tool <code>loadjava</code>, and creates the
+  stored procedure;
+  <ul>
+    <li><code>checkLoadResult.sql</code> - The SQL file that checks the
+    status after loading the class in Oracle</li>
+    <li><code>createStoredProc.sql</code> - The SQL file that creates the
+    stored procedure (function)</li>
+    <li><code>checkStoredProc.sql</code> - The SQL file
+    that checks the stored procedure</li>
+  </ul>
+  </li>
+  <li><code>ant runOscar</code> - The Ant target that calls the
+  stored procedure;
+  <ul>
+    <li style="text-align: left;"><code>callStoredProc.sql</code> - The
+    SQL file that calls the stored procedure</li>
+  </ul>
+  </li>
+</ul>
+
+
+
+<h2>The Trap Example</h2>
+<p>
+The directory <code>uk/co/westhawk/nothread/trap</code> contains the
+Trap example. The idea is that every time a row is inserted in the
+(newly defined) <code>scott.trap</code> table, a SNMPv2 trap is sent,
+using the <code>SendTrap.doSendTrap()</code> java method.
+The fields in the table represent the trap parameters.
+</p>
+<p>
+To use the stack for sending traps in SNMPv2 without creating threads, use
+the classes
+</p>
+<ul>
+  <li><code>PassiveTrapPduv2</code> instead of <code>OneTrapPduv2</code>.
+  The send operation will send the trap in the callers thread
+   </li>
+  <li><code>PassiveSnmpContextv2c</code> instead of
+  <code>SnmpContextv2c</code>
+  </li>
+</ul>
+
+<p>
+Similar classes are available for SNMPv1.
+</p>
+
+<p>
+All the necessary files are jarred in a cut-down version of the stack;
+<code>snmpOracle&lt;no&gt;.jar</code>, where <code>no</code> is the
+stack version number, like <code>4_14</code>.
+</p>
+<p>
+The example uses the <code>scott</code> schema. This schema is used in
+most of Oracle's examples and is usually created during Oracle's
+installation time.
+</p>
+<ul>
+  <li><code>SendTrap.java</code> - The java source file</li>
+  <li><code>ant loadTrap</code> - The Ant target that loads the
+  jar file, using the Oracle tool <code>loadjava</code>, creates
+  the <code>scott.trap</code> table and creates the stored procedure;
+  <ul>
+    <li><code>grantPermission.sql</code> - Grants the necessary socket
+    permissions to Oracle user scott</li>
+    <li><code>checkLoadResult.sql</code> - Checks if all the classes in the
+    jar file have loaded and are resolved successfully</li>
+    <li><code>createTrapTable.sql</code> - Creates the Oracle package with
+    the call spec, the <code>scott.trap</code> table and the database insert
+    trigger that will call the function to send the trap</li>
+    <li><code>checkStoredFunc.sql</code> - Checks the stored procedure</li>
+  </ul>
+  </li>
+</ul>
+
+<p>
+Resolving the jar file (see <code>loadTrap</code>) resulted in a
+lot of complains about running out of shared pool memory, so the shared pool
+size was enlarged.
+</p>
+
+<p>
+Running the example can be done in two ways; via the Ant
+<code>runTrap</code> target or via <code>XSQL.</code> The later
+is much more fun, but requires Oracle's XSQL to work.
+</p>
+
+<ul>
+  <li><code>ant runTrap</code> - The Ant target that runs the
+  example
+  <ul>
+    <li><code>insertRow.sql</code> - Inserts a row in the trap table. The
+    trigger will cause the sending of the trap
+    </li>
+  </ul>
+  </li>
+  <li><code>xsql/</code> - The directory with <code>HTML,</code>
+  <code>XSQL</code> and <code>XSL</code> files;
+  <ul>
+    <li><code>insert.html</code> - Offers a <code>HTML</code> form to enter
+    the values of each field in the <code>scott.trap</code> table</li>
+    <li><code>table-post.xsql</code> - The action in the form above. It will
+    insert the data into the table and returns the result by querying the
+    last insert</li>
+    <li><code>table-transform-post.xsl</code> - The stylesheet used to
+    transform the data before being inserted into the table</li>
+    <li><code>table-post.xsl</code> - The stylesheet used to transform the
+    result</li>
+  </ul>
+  </li>
+</ul>
+
+
+<hr/>
+
+<p>
+<small>
+$Revision: 1.4 $, $Date: 2009/03/18 12:15:42 $
+</small>
+</p>
+<p>
+<small>
+Post to the 
+<a
+href="https://lists.sourceforge.net/lists/listinfo/westhawksnmp-snmp"
+target="outside">snmp mailing list</a>
+or contact the
+<a href="mailto:snmp@westhawk.co.uk">snmp group</a>
+at
+<a href="http://www.westhawk.co.uk" target="outside">Westhawk Ltd</a>
+</small>
+</p>
+
+
+</body>
+</html>

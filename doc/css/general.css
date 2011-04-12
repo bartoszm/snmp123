@@ -1,0 +1,52 @@
+body 
+{
+    font-family: arial;
+    background-color: #fefec4
+}
+caption 
+{
+    background-color: #ccccee
+}
+h3.q
+{
+    background-color:#aaaacc;
+    color:#000000
+}
+h3 
+{
+    background-color:#646b31;
+    color:#eeeedd
+}
+code 
+{
+    color: #000080
+}
+pre 
+{
+    color: #008000
+}
+
+.inverse 
+{
+    background-color:#646b31; 
+    color:#eeeedd
+}
+.shell 
+{
+    color: #008000
+}
+.user 
+{
+    color: #000080
+}
+.faint 
+{
+    color: #808080
+}
+.question 
+{
+    background-color: #ccccee ;
+    font-weight: bold
+}
+
+

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!--
+  The code in this file does the 
+      uk/co/westhawk/nothread/oscar
+      uk/co/westhawk/nothread/trap
+  stuff.
+
+  This will only work if all the db properties
+  are set properly.
+
+  scott/tiger is the account where most of Oracle's examples
+  live. See ${ORACLE_HOME}/rdbms/admin/utlsampl.sql
+-->
+
+
+<property name="db.sid" value="ORCL"/>
+<property name="db.port" value="1521"/>
+<property name="db.host" value="localhost"/>
+<property name="db.user" value="scott"/>
+<property name="db.pass" value="tiger"/>
+<property name="db.driver" value="oracle.jdbc.driver.OracleDriver"/>
+<property name="db.db" value="${db.host}:${db.port}:${db.sid}"/>
+<property name="db.url" value="jdbc:oracle:thin:@${db.db}"/>
+
+<property name="oscar.dir" value="uk/co/westhawk/nothread/oscar"/>
+<property name="trap.dir" value="uk/co/westhawk/nothread/trap"/>
+
+
+<!--
+The property oracle.dir is defined in build.xml and (maybe) overwritten
+in build.properties
+-->
+<fileset id="oracle.jars" dir="${oracle.dir}">
+    <include name="jdbc/lib/classes12.zip"/>
+</fileset>
+<path id="oracle.classpath">
+    <fileset refid="oracle.jars"/>
+</path>
+
+
+
+
+<!-- The Oscar example -->
+
+<target name="loadOscar" description="Loads the Oscar example"
+depends="checkSystemPassword">
+    <antcall target="compileOscar"/>
+
+    <antcall target="sqlcall">
+        <param name="db.user" value="system"/>
+        <param name="db.pass" value="${env.SYSTEMPASS}"/>
+        <param name="file.sql" value="${src.dir}/${oscar.dir}/createScott.sql"/>
+    </antcall>
+
+    <antcall target="dropjava">
+        <param name="java.object" value="${classesO.dir}/${oscar.dir}/Oscar.class"/>
+    </antcall>
+    <antcall target="loadjava">
+        <param name="java.object" value="${classesO.dir}/${oscar.dir}/Oscar.class"/>
+    </antcall>
+
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${oscar.dir}/checkLoadResult.sql"/>
+    </antcall>
+
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${oscar.dir}/createStoredProc.sql"/>
+    </antcall>
+
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${oscar.dir}/checkStoredProc.sql"/>
+    </antcall>
+</target>
+
+<target name="runOscar" description="Runs the Oscar example">
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${oscar.dir}/callStoredProc.sql"/>
+    </antcall>
+</target>
+
+<target name="compileOscar"
+    description="Compiling the Oscar example">
+    <tstamp/>
+    <mkdir dir="${classesO.dir}"/>
+
+    <javac destdir="${classesO.dir}"
+           debug="${javac.debug}"
+           deprecation="on"
+           target="1.2">
+        <src>
+            <pathelement path="${src.dir}/uk"/>
+        </src>
+        <include name="**/nothread/oscar/*java"/>
+        <classpath>
+            <path refid="general.classpath"/>
+            <path refid="oracle.classpath"/>
+        </classpath>
+    </javac>
+</target>
+
+
+
+
+<!-- The Trap example -->
+
+<target name="loadTrap" description="Loads the Trap example"
+depends="checkSystemPassword">
+    <antcall target="dropjava">
+        <param name="java.object" value="${snmpOracle.jar}"/>
+    </antcall>
+    <antcall target="loadjava">
+        <param name="java.object" value="${snmpOracle.jar}"/>
+    </antcall>
+
+    <!-- 
+        Run this as the Oracle system or dba user 
+        Grants the SocketPermission to Oracle user SCOTT
+    -->
+    <antcall target="sqlcall">
+        <param name="db.user" value="system"/>
+        <param name="db.pass" value="${env.SYSTEMPASS}"/>
+        <param name="file.sql" value="${src.dir}/${trap.dir}/grantPermission.sql"/>
+    </antcall>
+
+
+    <!--
+        Selects all INVALID Java objects. There should be none
+    -->
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${trap.dir}/checkLoadResult.sql"/>
+    </antcall>
+
+    <!--
+        Creates the scott.TrapTest package and the scott.Trap table
+    -->
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${trap.dir}/createTrapTable.sql"/>
+    </antcall>
+
+    <!--
+        Queries the SCOTT package bodies
+    -->
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${trap.dir}/checkStoredFunc.sql"/>
+    </antcall>
+</target>
+
+
+<target name="runTrap" description="Runs the Trap example">
+    <antcall target="sqlcall">
+        <param name="file.sql" value="${src.dir}/${trap.dir}/insertRow.sql"/>
+    </antcall>
+</target>
+
+
+
+<!-- Oracle independent targets -->
+
+<target name="checkSystemPassword" unless="env.SYSTEMPASS">
+    <fail message="Environment variable SYSTEMPASS must be set!"/>
+</target>
+
+<target name="dropjava"
+    description="Runs dropjava to drop the class from the Oracle database"
+    if="java.object">
+
+    <exec executable="${oracle.dir}/bin/dropjava">
+        <arg line="-verbose"/>
+        <arg line="-thin"/>
+        <arg line="-user ${db.user}/${db.pass}@${db.db}"/>
+        <arg line="${java.object}"/>
+    </exec>
+</target>
+
+<target name="loadjava"
+    description="Runs loadjava to load the class into the Oracle database"
+    if="java.object">
+
+    <exec executable="${oracle.dir}/bin/loadjava">
+        <arg line="-verbose"/>
+        <arg line="-thin"/>
+        <arg line="-resolve"/>
+        <arg line="-user ${db.user}/${db.pass}@${db.db}"/>
+        <arg line="${java.object}"/>
+    </exec>
+</target>
+
+<target name="sqlcall"
+    description="Call the SQL task on sql file"
+    if="db.pass">
+
+    <available property="src.file"
+               file="${file.sql}"
+               value="${file.sql}"/>
+        <sql driver="${db.driver}"
+             url="${db.url}"
+             userid="${db.user}"
+             password="${db.pass}"
+             delimiter="/"
+             delimitertype="row"
+             onerror="abort"
+             print="true">
+             <classpath>
+                  <path refid="oracle.classpath"/>
+             </classpath>
+             <transaction src="${src.file}"/>
+        </sql>
+</target>
+
+
